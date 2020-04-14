@@ -1,0 +1,28 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvMaze.Api.Client", "TvMaze.Api.Client\TvMaze.Api.Client.csproj", "{F15B0E69-85D6-4FE7-8183-15F13584049D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{91460314-DB8F-4403-9B84-0522C32B46C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvMaze.Api.Client.Integration.Tests", "TvMaze.Api.Client.Integration.Tests\TvMaze.Api.Client.Integration.Tests.csproj", "{558A07AE-5422-46E3-9B65-5279FE2A3DB4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F15B0E69-85D6-4FE7-8183-15F13584049D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F15B0E69-85D6-4FE7-8183-15F13584049D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F15B0E69-85D6-4FE7-8183-15F13584049D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F15B0E69-85D6-4FE7-8183-15F13584049D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{558A07AE-5422-46E3-9B65-5279FE2A3DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{558A07AE-5422-46E3-9B65-5279FE2A3DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{558A07AE-5422-46E3-9B65-5279FE2A3DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{558A07AE-5422-46E3-9B65-5279FE2A3DB4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{558A07AE-5422-46E3-9B65-5279FE2A3DB4} = {91460314-DB8F-4403-9B84-0522C32B46C5}
+	EndGlobalSection
+EndGlobal
