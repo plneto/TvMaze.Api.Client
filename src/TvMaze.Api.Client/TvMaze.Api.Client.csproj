@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -7,14 +7,16 @@
     <Authors>Paulo Lemos Neto</Authors>
     <Description>.NET/C# client for the TVmaze API</Description>
     <PackageProjectUrl>https://github.com/plneto/TvMaze.Api.Client</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/plneto/TvMaze.Api.Client/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/plneto/TvMaze.Api.Client</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>tvmaze api client</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <AssemblyVersion>0.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
-  
 </Project>
