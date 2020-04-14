@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageVersion>0.0.1</PackageVersion>
+    <Title>TVmaze API Client</Title>
+    <Authors>Paulo Lemos Neto</Authors>
+    <Description>.NET/C# client for the TVmaze API</Description>
+    <PackageProjectUrl>https://github.com/plneto/TvMaze.Api.Client</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/plneto/TvMaze.Api.Client/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/plneto/TvMaze.Api.Client</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>tvmaze api client</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
