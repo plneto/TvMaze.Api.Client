@@ -2,8 +2,7 @@
 
 namespace TvMaze.Api.Client
 {
-    public interface ITvMazeClient : ISearchEndpoint
+    public interface ITvMazeClient : ISearchEndpoint, IShowsEndpoint, IEpisodesEndpoint
     {
-
     }
 }

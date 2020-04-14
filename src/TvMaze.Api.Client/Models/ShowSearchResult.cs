@@ -1,6 +1,6 @@
 ﻿namespace TvMaze.Api.Client.Models
 {
-    public class ShowSearch
+    public class ShowSearchResult
     {
         public double Score { get; set; }
 

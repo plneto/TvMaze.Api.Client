@@ -21,7 +21,7 @@ namespace TvMaze.Api.Client
             };
         }
 
-        public async Task<IEnumerable<ShowSearch>> ShowSearch(string query)
+        public async Task<IEnumerable<ShowSearchResult>> ShowSearchAsync(string query)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
@@ -34,7 +34,65 @@ namespace TvMaze.Api.Client
 
             var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<IEnumerable<ShowSearch>>(jsonResponse);
+            return JsonConvert.DeserializeObject<IEnumerable<ShowSearchResult>>(jsonResponse);
+        }
+
+        public async Task<IEnumerable<Episode>> GetEpisodeListAsync(int showId)
+        {
+            if (showId <= 0)
+            {
+                throw new ArgumentNullException(nameof(showId));
+            }
+
+            var httpResponse = await _httpClient.GetAsync($"shows/{showId}/episodes");
+
+            httpResponse.EnsureSuccessStatusCode();
+
+            var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<IEnumerable<Episode>>(jsonResponse);
+        }
+
+        public async Task<Episode> GetEpisodeByNumberAsync(int showId, int season, int episodeNumber)
+        {
+            if (showId <= 0)
+            {
+                throw new ArgumentNullException(nameof(showId));
+            }
+
+            if (season <= 0)
+            {
+                throw new ArgumentNullException(nameof(season));
+            }
+
+            if (episodeNumber <= 0)
+            {
+                throw new ArgumentNullException(nameof(episodeNumber));
+            }
+
+            var httpResponse = await _httpClient.GetAsync($"shows/{showId}/episodebynumber?season={season}&number={episodeNumber}");
+
+            httpResponse.EnsureSuccessStatusCode();
+
+            var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Episode>(jsonResponse);
+        }
+
+        public async Task<Episode> GetEpisodeByIdAsync(int episodeId)
+        {
+            if (episodeId <= 0)
+            {
+                throw new ArgumentNullException(nameof(episodeId));
+            }
+
+            var httpResponse = await _httpClient.GetAsync($"episodes/{episodeId}");
+
+            httpResponse.EnsureSuccessStatusCode();
+
+            var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Episode>(jsonResponse);
         }
     }
 }

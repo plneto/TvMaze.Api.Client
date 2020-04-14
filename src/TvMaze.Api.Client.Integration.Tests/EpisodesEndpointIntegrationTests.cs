@@ -5,35 +5,36 @@ using Xunit;
 
 namespace TvMaze.Api.Client.Integration.Tests
 {
-    public class SearchEndpointIntegrationTests
+    public class EpisodesEndpointIntegrationTests
     {
         private readonly ITvMazeClient _tvMazeClient;
 
-        public SearchEndpointIntegrationTests()
+        public EpisodesEndpointIntegrationTests()
         {
             _tvMazeClient = new TvMazeClient();
         }
 
         [Fact]
-        public async void ShowSearchAsync_ValidParameter_Success()
+        public async void GetEpisodeByIdAsync_ValidParameter_Success()
         {
             // arrange
-            const string query = "cars";
+            const int episodeId = 1;
 
             // act
-            var response = await _tvMazeClient.ShowSearchAsync(query);
+            var response = await _tvMazeClient.GetEpisodeByIdAsync(episodeId);
 
             // assert
             response.Should().NotBeNull();
         }
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        public async void ShowSearchAsync_InvalidQuery_ThrowsArgumentNullException(string query)
+        [Fact]
+        public async void GetEpisodeByIdAsync_InvalidId_ThrowsArgumentNullException()
         {
+            // arrange
+            const int episodeId = 0;
+
             // act
-            Func<Task> action = () => _tvMazeClient.ShowSearchAsync(query);
+            Func<Task> action = () => _tvMazeClient.GetEpisodeByIdAsync(episodeId);
 
             // assert
             await action.Should().ThrowAsync<ArgumentNullException>();
