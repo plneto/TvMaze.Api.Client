@@ -7,6 +7,9 @@ before_build:
 
 build_script:
   - dotnet build ".\src\TvMaze.Api.Client.sln"
+  
+after_build:
+  - dotnet pack .\src\TvMaze.Api.Client\TvMaze.Api.Client.csproj -c Release -o .\artifacts --include-symbols
     
 artifacts:
   - path: '**\*.nupkg'
