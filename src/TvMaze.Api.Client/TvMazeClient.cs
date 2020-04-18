@@ -1,9 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using TvMaze.Api.Client.Models;
+using TvMaze.Api.Client.Endpoints.Episodes;
+using TvMaze.Api.Client.Endpoints.Search;
+using TvMaze.Api.Client.Endpoints.Shows;
+using TvMaze.Api.Client.Endpoints.Updates;
 
 namespace TvMaze.Api.Client
 {
@@ -11,88 +11,25 @@ namespace TvMaze.Api.Client
     {
         private const string BaseApiUrl = "http://api.tvmaze.com/";
 
-        private readonly HttpClient _httpClient;
-
         public TvMazeClient()
         {
-            _httpClient = new HttpClient
+            var httpClient = new HttpClient
             {
                 BaseAddress = new Uri(BaseApiUrl)
             };
+
+            Search = new SearchEndpoint(httpClient);
+            Shows = new ShowsEndpoint(httpClient);
+            Episodes = new EpisodesEndpoint(httpClient);
+            Updates = new UpdatesEndpoint(httpClient);
         }
 
-        public async Task<IEnumerable<ShowSearchResult>> ShowSearchAsync(string query)
-        {
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                throw new ArgumentNullException(nameof(query));
-            }
+        public ISearchEndpoint Search { get; }
 
-            var httpResponse = await _httpClient.GetAsync($"search/shows?q={query}");
+        public IShowsEndpoint Shows { get; }
 
-            httpResponse.EnsureSuccessStatusCode();
+        public IEpisodesEndpoint Episodes { get; }
 
-            var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<IEnumerable<ShowSearchResult>>(jsonResponse);
-        }
-
-        public async Task<IEnumerable<Episode>> GetEpisodeListAsync(int showId)
-        {
-            if (showId <= 0)
-            {
-                throw new ArgumentNullException(nameof(showId));
-            }
-
-            var httpResponse = await _httpClient.GetAsync($"shows/{showId}/episodes");
-
-            httpResponse.EnsureSuccessStatusCode();
-
-            var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<IEnumerable<Episode>>(jsonResponse);
-        }
-
-        public async Task<Episode> GetEpisodeByNumberAsync(int showId, int season, int episodeNumber)
-        {
-            if (showId <= 0)
-            {
-                throw new ArgumentNullException(nameof(showId));
-            }
-
-            if (season <= 0)
-            {
-                throw new ArgumentNullException(nameof(season));
-            }
-
-            if (episodeNumber <= 0)
-            {
-                throw new ArgumentNullException(nameof(episodeNumber));
-            }
-
-            var httpResponse = await _httpClient.GetAsync($"shows/{showId}/episodebynumber?season={season}&number={episodeNumber}");
-
-            httpResponse.EnsureSuccessStatusCode();
-
-            var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<Episode>(jsonResponse);
-        }
-
-        public async Task<Episode> GetEpisodeByIdAsync(int episodeId)
-        {
-            if (episodeId <= 0)
-            {
-                throw new ArgumentNullException(nameof(episodeId));
-            }
-
-            var httpResponse = await _httpClient.GetAsync($"episodes/{episodeId}");
-
-            httpResponse.EnsureSuccessStatusCode();
-
-            var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<Episode>(jsonResponse);
-        }
+        public IUpdatesEndpoint Updates { get; }
     }
 }

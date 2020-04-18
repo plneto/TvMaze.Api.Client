@@ -21,7 +21,7 @@ namespace TvMaze.Api.Client.Integration.Tests
             const string query = "cars";
 
             // act
-            var response = await _tvMazeClient.ShowSearchAsync(query);
+            var response = await _tvMazeClient.Search.ShowSearchAsync(query);
 
             // assert
             response.Should().NotBeNull();
@@ -33,7 +33,7 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void ShowSearchAsync_InvalidQuery_ThrowsArgumentNullException(string query)
         {
             // act
-            Func<Task> action = () => _tvMazeClient.ShowSearchAsync(query);
+            Func<Task> action = () => _tvMazeClient.Search.ShowSearchAsync(query);
 
             // assert
             await action.Should().ThrowAsync<ArgumentNullException>();
