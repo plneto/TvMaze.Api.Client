@@ -21,7 +21,7 @@ namespace TvMaze.Api.Client.Integration.Tests
             const int showId = 1;
 
             // act
-            var response = await _tvMazeClient.GetEpisodeListAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowEpisodeListAsync(showId);
 
             // assert
             response.Should().NotBeNull();
@@ -34,7 +34,7 @@ namespace TvMaze.Api.Client.Integration.Tests
             const int showId = 0;
 
             // act
-            Func<Task> action = () => _tvMazeClient.GetEpisodeListAsync(showId);
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowEpisodeListAsync(showId);
 
             // assert
             await action.Should().ThrowAsync<ArgumentNullException>();
@@ -49,7 +49,7 @@ namespace TvMaze.Api.Client.Integration.Tests
             const int number = 1;
 
             // act
-            var response = await _tvMazeClient.GetEpisodeByNumberAsync(showId, season, number);
+            var response = await _tvMazeClient.Shows.GetEpisodeByNumberAsync(showId, season, number);
 
             // assert
             response.Should().NotBeNull();
@@ -62,7 +62,7 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetEpisodeByNumberAsync_InvalidParameters_ThrowsArgumentNullException(int showId, int season, int number)
         {
             // act
-            Func<Task> action = () => _tvMazeClient.GetEpisodeByNumberAsync(showId, season, number);
+            Func<Task> action = () => _tvMazeClient.Shows.GetEpisodeByNumberAsync(showId, season, number);
 
             // assert
             await action.Should().ThrowAsync<ArgumentNullException>();
