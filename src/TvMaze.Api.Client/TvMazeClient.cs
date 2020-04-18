@@ -3,6 +3,7 @@ using System.Net.Http;
 using TvMaze.Api.Client.Endpoints.Episodes;
 using TvMaze.Api.Client.Endpoints.Search;
 using TvMaze.Api.Client.Endpoints.Shows;
+using TvMaze.Api.Client.Endpoints.Updates;
 
 namespace TvMaze.Api.Client
 {
@@ -20,6 +21,7 @@ namespace TvMaze.Api.Client
             Search = new SearchEndpoint(httpClient);
             Shows = new ShowsEndpoint(httpClient);
             Episodes = new EpisodesEndpoint(httpClient);
+            Updates = new UpdatesEndpoint(httpClient);
         }
 
         public ISearchEndpoint Search { get; }
@@ -27,5 +29,7 @@ namespace TvMaze.Api.Client
         public IShowsEndpoint Shows { get; }
 
         public IEpisodesEndpoint Episodes { get; }
+
+        public IUpdatesEndpoint Updates { get; }
     }
 }
