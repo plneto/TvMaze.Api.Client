@@ -19,7 +19,7 @@ namespace TvMaze.Api.Client.Models
 
         public string Status { get; set; }
 
-        public int Runtime { get; set; }
+        public int? Runtime { get; set; }
 
         public string Premiered { get; set; }
 
