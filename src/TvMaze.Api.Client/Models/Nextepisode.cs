@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace TvMaze.Api.Client.Models
+﻿namespace TvMaze.Api.Client.Models
 {
     public class NextEpisode
     {
