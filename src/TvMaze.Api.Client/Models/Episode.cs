@@ -24,7 +24,7 @@ namespace TvMaze.Api.Client.Models
         [JsonProperty("airstamp")]
         public DateTimeOffset? AirStamp { get; set; }
 
-        public int Runtime { get; set; }
+        public int? Runtime { get; set; }
 
         public Image Image { get; set; }
 
