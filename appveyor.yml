@@ -20,7 +20,7 @@ build_script:
   - dotnet build ".\src\TvMaze.Api.Client.sln"
   
 after_build:
-  - dotnet pack .\src\TvMaze.Api.Client\TvMaze.Api.Client.csproj -c Release -o .\artifacts --include-symbols
+  - dotnet pack .\src\TvMaze.Api.Client\TvMaze.Api.Client.csproj -c Release -o .\artifacts --include-symbols -p:SymbolPackageFormat=snupkg
     
 artifacts:
   - path: '**\*.nupkg'
@@ -30,4 +30,4 @@ deploy:
     api_key:
       secure: ENJzzbHUfAdAi5+R2DRqZGe25kwBr11/5WcI2vCey8yGChP8rLm0wBTLDOg6U5XH
     skip_symbols: false
-    artifact: /.*\.nupkg/
+    artifact: /.*(\.|\.s)nupkg/
