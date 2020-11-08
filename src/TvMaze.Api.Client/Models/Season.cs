@@ -13,7 +13,7 @@ namespace TvMaze.Api.Client.Models
 
         public string Name { get; set; }
 
-        public int EpisodeOrder { get; set; }
+        public int? EpisodeOrder { get; set; }
 
         public string PremiereDate { get; set; }
 
