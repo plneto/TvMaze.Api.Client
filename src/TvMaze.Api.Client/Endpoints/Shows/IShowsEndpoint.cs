@@ -52,5 +52,23 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         /// <param name="seasonId">The season ID</param>
         /// <returns>Returns a list of episodes in this season.</returns>
         Task<IEnumerable<Episode>> GetSeasonEpisodesAsync(int seasonId);
+
+        /// <summary>
+        /// Gets the show cast.
+        ///
+        /// https://www.tvmaze.com/api#show-cast
+        /// </summary>
+        /// <param name="showId">The show ID.</param>
+        /// <returns>Returns a list of cast members.</returns>
+        Task<IEnumerable<Cast>> GetShowCastAsync(int showId);
+
+        /// <summary>
+        /// Gets the show crew.
+        ///
+        /// https://www.tvmaze.com/api#show-crew
+        /// </summary>
+        /// <param name="showId">The show ID.</param>
+        /// <returns>Returns a list of crew members.</returns>
+        Task<IEnumerable<Crew>> GetShowCrewAsync(int showId);
     }
 }
