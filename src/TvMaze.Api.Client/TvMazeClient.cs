@@ -12,12 +12,18 @@ namespace TvMaze.Api.Client
         private const string BaseApiUrl = "http://api.tvmaze.com/";
 
         public TvMazeClient()
+            : this(new HttpClient())
         {
-            var httpClient = new HttpClient
-            {
-                BaseAddress = new Uri(BaseApiUrl)
-            };
+        }
 
+        public TvMazeClient(HttpClient httpClient)
+        {
+            // Caller didn't provide the base address.
+            if (httpClient.BaseAddress == null)
+            {
+                httpClient.BaseAddress = new Uri(BaseApiUrl);
+            }
+            
             Search = new SearchEndpoint(httpClient);
             Shows = new ShowsEndpoint(httpClient);
             Episodes = new EpisodesEndpoint(httpClient);
