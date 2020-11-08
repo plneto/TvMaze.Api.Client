@@ -26,6 +26,9 @@ artifacts:
   - path: '**\*.nupkg'
   - path: '**\*.snupkg'
 
+nuget:
+  disable_publish_on_pr: true
+
 deploy:
   - provider: NuGet
     api_key:
