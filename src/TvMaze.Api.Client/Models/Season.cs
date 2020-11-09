@@ -17,7 +17,7 @@ namespace TvMaze.Api.Client.Models
 
         public string PremiereDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public Network Network { get; set; }
 
