@@ -75,5 +75,25 @@ namespace TvMaze.Api.Client.Endpoints.Shows
 
             return _httpClient.GetAsync<IEnumerable<Episode>>($"seasons/{seasonId}/episodes");
         }
+
+        public Task<IEnumerable<Cast>> GetShowCastAsync(int showId)
+        {
+            if (showId <= 0)
+            {
+                throw new ArgumentNullException(nameof(showId));
+            }
+
+            return _httpClient.GetAsync<IEnumerable<Cast>>($"shows/{showId}/cast");
+        }
+        
+        public Task<IEnumerable<Crew>> GetShowCrewAsync(int showId)
+        {
+            if (showId <= 0)
+            {
+                throw new ArgumentNullException(nameof(showId));
+            }
+
+            return _httpClient.GetAsync<IEnumerable<Crew>>($"shows/{showId}/crew");
+        }
     }
 }

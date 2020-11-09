@@ -67,5 +67,57 @@ namespace TvMaze.Api.Client.Integration.Tests
             // assert
             await action.Should().ThrowAsync<ArgumentNullException>();
         }
+
+        [Fact]
+        public async void GetShowCastAsync_ValidParameters_Success()
+        {
+            // arrange 
+            const int showId = 1;
+            
+            // act
+            var response = await _tvMazeClient.Shows.GetShowCastAsync(showId);
+
+            // assert
+            response.Should().NotBeNull();
+        }
+        
+        [Fact]
+        public async void GetShowCastAsync_InvalidId_ThrowsArgumentNullException()
+        {
+            // arrange
+            const int showId = 0;
+
+            // act
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowCastAsync(showId);
+
+            // assert
+            await action.Should().ThrowAsync<ArgumentNullException>();
+        }
+        
+        [Fact]
+        public async void GetShowCrewAsync_ValidParameters_Success()
+        {
+            // arrange 
+            const int showId = 1;
+            
+            // act
+            var response = await _tvMazeClient.Shows.GetShowCrewAsync(showId);
+
+            // assert
+            response.Should().NotBeNull();
+        }
+        
+        [Fact]
+        public async void GetShowCrewAsync_InvalidId_ThrowsArgumentNullException()
+        {
+            // arrange
+            const int showId = 0;
+
+            // act
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowCrewAsync(showId);
+
+            // assert
+            await action.Should().ThrowAsync<ArgumentNullException>();
+        }
     }
 }
