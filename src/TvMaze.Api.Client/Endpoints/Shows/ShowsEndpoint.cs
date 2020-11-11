@@ -95,5 +95,15 @@ namespace TvMaze.Api.Client.Endpoints.Shows
 
             return _httpClient.GetAsync<IEnumerable<Crew>>($"shows/{showId}/crew");
         }
+
+        public Task<IEnumerable<ShowImage>> GetShowImagesAsync(int showId)
+        {
+            if (showId <= 0)
+            {
+                throw new ArgumentNullException(nameof(showId));
+            }
+
+            return _httpClient.GetAsync<IEnumerable<ShowImage>>($"shows/{showId}/images");
+        }
     }
 }
