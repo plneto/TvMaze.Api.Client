@@ -4,7 +4,7 @@
     {
         public long Id { get; set; }
 
-        public ShowImageType Type { get; set; }
+        public ShowImageType? Type { get; set; }
 
         public bool Main { get; set; }
 
