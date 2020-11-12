@@ -70,5 +70,14 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         /// <param name="showId">The show ID.</param>
         /// <returns>Returns a list of crew members.</returns>
         Task<IEnumerable<Crew>> GetShowCrewAsync(int showId);
+
+        /// <summary>
+        /// Gets the show images.
+        ///
+        /// https://www.tvmaze.com/api#show-image
+        /// </summary>
+        /// <param name="showId">The show ID.</param>
+        /// <returns>Returns a list of show images.</returns>
+        Task<IEnumerable<ShowImage>> GetShowImagesAsync(int showId);
     }
 }

@@ -119,5 +119,31 @@ namespace TvMaze.Api.Client.Integration.Tests
             // assert
             await action.Should().ThrowAsync<ArgumentNullException>();
         }
+        
+        [Fact]
+        public async void GetShowImagesAsync_ValidParameters_Success()
+        {
+            // arrange 
+            const int showId = 1;
+            
+            // act
+            var response = await _tvMazeClient.Shows.GetShowImagesAsync(showId);
+
+            // assert
+            response.Should().NotBeNull();
+        }
+        
+        [Fact]
+        public async void GetShowImagesAsync_InvalidId_ThrowsArgumentNullException()
+        {
+            // arrange
+            const int showId = 0;
+
+            // act
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowImagesAsync(showId);
+
+            // assert
+            await action.Should().ThrowAsync<ArgumentNullException>();
+        }
     }
 }
