@@ -14,12 +14,11 @@ namespace TvMaze.Api.Client.Integration.Tests
             _tvMazeClient = new TvMazeClient();
         }
 
-        [Fact]
-        public async void GetEpisodeByIdAsync_ValidParameter_Success()
+        [Theory]
+        [InlineData(1)]
+        [InlineData(13961)]
+        public async void GetEpisodeByIdAsync_ValidParameter_Success(int episodeId)
         {
-            // arrange
-            const int episodeId = 1;
-
             // act
             var response = await _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(episodeId);
 
