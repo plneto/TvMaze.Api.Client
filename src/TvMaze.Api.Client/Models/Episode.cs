@@ -7,6 +7,8 @@ namespace TvMaze.Api.Client.Models
     {
         public int Id { get; set; }
 
+        public EpisodeType Type { get; set; }
+
         public string Url { get; set; }
 
         public string Name { get; set; }
