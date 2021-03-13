@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using FluentAssertions;
+using TvMaze.Api.Client.Models;
 using Xunit;
 
 namespace TvMaze.Api.Client.Integration.Tests
@@ -15,15 +16,17 @@ namespace TvMaze.Api.Client.Integration.Tests
         }
 
         [Theory]
-        [InlineData(1)]
-        [InlineData(13961)]
-        public async void GetEpisodeByIdAsync_ValidParameter_Success(int episodeId)
+        [InlineData(1, EpisodeType.Regular)]
+        [InlineData(13961, EpisodeType.SignificantSpecial)]
+        [InlineData(13960, EpisodeType.InsignificantSpecial)]
+        public async void GetEpisodeByIdAsync_ValidParameter_Success(int episodeId, EpisodeType expectedType)
         {
             // act
             var response = await _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(episodeId);
 
             // assert
             response.Should().NotBeNull();
+            response.Type.Should().BeEquivalentTo(expectedType);
         }
 
         [Fact]
