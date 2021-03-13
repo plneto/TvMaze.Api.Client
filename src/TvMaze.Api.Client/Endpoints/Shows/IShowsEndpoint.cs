@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TvMaze.Api.Client.Models;
 
@@ -34,6 +35,16 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         /// <param name="episodeNumber">The episode number</param>
         /// <returns>Returns the full information for one episode.</returns>
         Task<Episode> GetEpisodeByNumberAsync(int showId, int season, int episodeNumber);
+
+        /// <summary>
+        /// Retrieve all episodes from this show that have aired on a specific date.
+        /// 
+        /// https://www.tvmaze.com/api#episodes-by-date
+        /// </summary>
+        /// <param name="showId">The show ID</param>
+        /// <param name="date">The date to get the episodes for.</param>
+        /// <returns>Returns the full information of all episodes aired on the given date.</returns>
+        Task<IEnumerable<Episode>> GetEpisodesByDateAsync(int showId, DateTime date);
 
         /// <summary>
         /// A complete list of seasons for the given show.

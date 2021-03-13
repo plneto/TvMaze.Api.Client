@@ -56,6 +56,16 @@ namespace TvMaze.Api.Client.Endpoints.Shows
             return _httpClient.GetAsync<Episode>($"shows/{showId}/episodebynumber?season={season}&number={episodeNumber}");
         }
 
+        public Task<IEnumerable<Episode>> GetEpisodesByDateAsync(int showId, DateTime date)
+        {
+            if (showId <= 0)
+            {
+                throw new ArgumentNullException(nameof(showId));
+            }
+
+            return _httpClient.GetAsync<IEnumerable<Episode>>($"shows/{showId}/episodesbydate?date={date:yyyy-MM-dd}");
+        }
+
         public Task<IEnumerable<Season>> GetShowSeasonsAsync(int showId)
         {
             if (showId <= 0)
