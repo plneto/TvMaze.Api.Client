@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
@@ -66,6 +67,48 @@ namespace TvMaze.Api.Client.Integration.Tests
 
             // assert
             await action.Should().ThrowAsync<ArgumentNullException>();
+        }
+        
+        [Fact]
+        public async void GetEpisodesByDate_ValidParameter_Success()
+        {
+            // arrange
+            const int showId = 1;
+            var date = new DateTime(2013, 06, 24);
+
+            // act
+            var response = await _tvMazeClient.Shows.GetEpisodesByDateAsync(showId, date);
+
+            // assert
+            response.Should().NotBeNull().And.NotBeEmpty();
+        }
+
+        [Fact]
+        public async void GetEpisodesByDate_ValidParameter_NoEpisodeFound()
+        {
+            // arrange
+            const int showId = 1;
+            var date = DateTime.MinValue;
+
+            // act
+            Func<Task> action = () => _tvMazeClient.Shows.GetEpisodesByDateAsync(showId, date);
+
+            // assert
+            await action.Should().ThrowAsync<HttpRequestException>();
+        }
+
+        [Fact]
+        public async void GetEpisodesByDate_InvalidId_ThrowsArgumentNullException()
+        {
+            // arrange
+            const int showId = 0;
+            var date = DateTime.MinValue;
+
+            // act
+            Func<Task> action = () => _tvMazeClient.Shows.GetEpisodesByDateAsync(showId, date);
+
+            // assert
+            await action.Should().ThrowAsync<ArgumentException>();
         }
 
         [Fact]
