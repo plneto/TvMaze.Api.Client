@@ -27,6 +27,19 @@ namespace TvMaze.Api.Client.Integration.Tests
             // assert
             response.Should().NotBeNull();
         }
+
+        [Fact]
+        public async void GetLookupByTvRageId_ValidParameter_NotFound()
+        {
+            // arrange
+            const int tvRageId = int.MaxValue;
+            
+            // act 
+            var response = await _tvMazeClient.Lookup.GetShowByTvRageId(tvRageId);
+            
+            // assert
+            response.Should().BeNull();
+        }
         
         [Fact]
         public async void GetLookupByTvRageId_InvalidId_ThrowsArgumentNullException()
@@ -53,6 +66,19 @@ namespace TvMaze.Api.Client.Integration.Tests
             // assert
             response.Should().NotBeNull();
         }
+
+        [Fact]
+        public async void GetLookupByTheTvdbId_ValidParameter_NotFound()
+        {
+            // arrange
+            const int theTvdbId = int.MaxValue;
+            
+            // act 
+            var response = await _tvMazeClient.Lookup.GetShowByTheTvdbId(theTvdbId);
+            
+            // assert
+            response.Should().BeNull();
+        }
         
         [Fact]
         public async void GetLookupByTheTvdbId_InvalidId_ThrowsArgumentNullException()
@@ -78,6 +104,19 @@ namespace TvMaze.Api.Client.Integration.Tests
             
             // assert
             response.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async void GetLookupByImdbId_ValidParameter_NotFound()
+        {
+            // arrange
+            const string imdbId = "ShouldNotExist";
+            
+            // act 
+            var response = await _tvMazeClient.Lookup.GetShowByImdbId(imdbId);
+            
+            // assert
+            response.Should().BeNull();
         }
         
         [Fact]
