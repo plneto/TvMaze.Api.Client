@@ -10,7 +10,7 @@ namespace TvMaze.Api.Client
 {
     public class TvMazeClient : ITvMazeClient
     {
-        private const string BaseApiUrl = "http://api.tvmaze.com/";
+        private const string BaseApiUrl = "https://api.tvmaze.com/";
 
         public TvMazeClient()
             : this(new HttpClient())
