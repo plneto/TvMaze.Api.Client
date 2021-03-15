@@ -30,6 +30,19 @@ namespace TvMaze.Api.Client.Integration.Tests
         }
 
         [Fact]
+        public async void GetEpisodeByIdAsync_ValidParameter_NotFound()
+        {
+            // arrange
+            const int episodeId = int.MaxValue;
+
+            // act
+            var response = await _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(episodeId);
+
+            // assert
+            response.Should().BeNull();
+        }
+
+        [Fact]
         public async void GetEpisodeByIdAsync_InvalidId_ThrowsArgumentNullException()
         {
             // arrange

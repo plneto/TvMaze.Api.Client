@@ -14,7 +14,7 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         /// </summary>
         /// <param name="showId">The show ID</param>
         /// <returns>Return all primary information for a given show.</returns>
-        Task<Show> GetShowMainInformation(int showId);
+        Task<Show> GetShowMainInformationAsync(int showId);
 
         /// <summary>
         /// A complete list of episodes for the given show.

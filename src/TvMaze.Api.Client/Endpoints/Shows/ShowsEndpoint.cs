@@ -16,7 +16,7 @@ namespace TvMaze.Api.Client.Endpoints.Shows
             _httpClient = httpClient;
         }
 
-        public Task<Show> GetShowMainInformation(int showId)
+        public Task<Show> GetShowMainInformationAsync(int showId)
         {
             if (showId <= 0)
             {
