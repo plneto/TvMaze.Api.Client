@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-using TvMaze.Api.Client.Extensions;
 using TvMaze.Api.Client.Models;
 
 namespace TvMaze.Api.Client.Endpoints.Lookup
 {
     public class LookupEndpoint : ILookupEndpoint
     {
-        private readonly HttpClient _httpClient;
+        private readonly TvMazeHttpClient _httpClient;
 
-        public LookupEndpoint(HttpClient httpClient)
+        public LookupEndpoint(TvMazeHttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-        
+
         /// <inheritdoc />
         public Task<Show> GetShowByTvRageId(int tvRageId)
         {
