@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using FluentAssertions;
 using TvMaze.Api.Client.Models;
 using Xunit;
@@ -40,19 +38,6 @@ namespace TvMaze.Api.Client.Integration.Tests
 
             // assert
             response.Should().BeNull();
-        }
-
-        [Fact]
-        public async void GetEpisodeByIdAsync_InvalidId_ThrowsArgumentNullException()
-        {
-            // arrange
-            const int episodeId = 0;
-
-            // act
-            Func<Task> action = () => _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(episodeId);
-
-            // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
         }
     }
 }

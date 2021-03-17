@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{91460314
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvMaze.Api.Client.Integration.Tests", "TvMaze.Api.Client.Integration.Tests\TvMaze.Api.Client.Integration.Tests.csproj", "{558A07AE-5422-46E3-9B65-5279FE2A3DB4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TvMaze.Api.Client.Tests", "TvMaze.Api.Client.Tests\TvMaze.Api.Client.Tests.csproj", "{8471CCB8-A9A3-4267-AAF9-63AEC13DE41B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +23,13 @@ Global
 		{558A07AE-5422-46E3-9B65-5279FE2A3DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{558A07AE-5422-46E3-9B65-5279FE2A3DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{558A07AE-5422-46E3-9B65-5279FE2A3DB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8471CCB8-A9A3-4267-AAF9-63AEC13DE41B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8471CCB8-A9A3-4267-AAF9-63AEC13DE41B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8471CCB8-A9A3-4267-AAF9-63AEC13DE41B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8471CCB8-A9A3-4267-AAF9-63AEC13DE41B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{558A07AE-5422-46E3-9B65-5279FE2A3DB4} = {91460314-DB8F-4403-9B84-0522C32B46C5}
+		{8471CCB8-A9A3-4267-AAF9-63AEC13DE41B} = {91460314-DB8F-4403-9B84-0522C32B46C5}
 	EndGlobalSection
 EndGlobal
