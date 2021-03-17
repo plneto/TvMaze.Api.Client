@@ -1,4 +1,5 @@
 using System.Net.Http;
+using TvMaze.Api.Client.Configuration;
 using TvMaze.Api.Client.Endpoints.Episodes;
 using TvMaze.Api.Client.Endpoints.Lookup;
 using TvMaze.Api.Client.Endpoints.Search;
@@ -13,12 +14,22 @@ namespace TvMaze.Api.Client
         private const string BaseApiUrl = "https://api.tvmaze.com/";
 
         public TvMazeClient()
-            : this(new HttpClient())
+            : this(new HttpClient(), null)
         {
         }
 
-        public TvMazeClient(HttpClient httpClient)
+        public TvMazeClient(HttpClient httpClient) 
+            : this(httpClient, null)
         {
+        }
+
+        public TvMazeClient(HttpClient httpClient, IRateLimitingStrategy rateLimitingStrategy)
+        {
+            if (rateLimitingStrategy == null)
+            {
+                rateLimitingStrategy = new ThrowExceptionRateLimitingStrategy();
+            }
+            
             var flurlClient = new FlurlClient(httpClient);
 
             // Caller didn't provide the base address.
@@ -29,7 +40,7 @@ namespace TvMaze.Api.Client
 
             flurlClient.AllowAnyHttpStatus();
 
-            var tvMazeHttpClient = new TvMazeHttpClient(flurlClient);
+            var tvMazeHttpClient = new TvMazeHttpClient(flurlClient, rateLimitingStrategy);
 
             Search = new SearchEndpoint(tvMazeHttpClient);
             Shows = new ShowsEndpoint(tvMazeHttpClient);

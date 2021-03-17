@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Flurl.Http;
+using TvMaze.Api.Client.Configuration;
 using TvMaze.Api.Client.Exceptions;
 
 namespace TvMaze.Api.Client
@@ -11,15 +12,17 @@ namespace TvMaze.Api.Client
     public class TvMazeHttpClient
     {
         private readonly FlurlClient _flurlClient;
+        private readonly IRateLimitingStrategy _rateLimitingStrategy;
 
-        public TvMazeHttpClient(FlurlClient flurlClient)
+        public TvMazeHttpClient(FlurlClient flurlClient, IRateLimitingStrategy rateLimitingStrategy)
         {
             _flurlClient = flurlClient;
+            _rateLimitingStrategy = rateLimitingStrategy;
         }
 
         public async Task<T> GetAsync<T>(string url, Func<T> notFoundResponseHandler = null)
         {
-            using (var httpResponse = await _flurlClient.Request(url).GetAsync())
+            using (var httpResponse = await _rateLimitingStrategy.ExecuteAsync(() => _flurlClient.Request(url).GetAsync()))
             {
                 switch (httpResponse.StatusCode)
                 {
