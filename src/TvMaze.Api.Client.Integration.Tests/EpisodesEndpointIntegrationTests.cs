@@ -6,6 +6,10 @@ namespace TvMaze.Api.Client.Integration.Tests
 {
     public class EpisodesEndpointIntegrationTests
     {
+        private const int ValidEpisodeIdRegularType = 1;
+        private const int ValidEpisodeIdSignificantSpecialType = 13961;
+        private const int ValidEpisodeIdInsignificantSpecialType = 13960;
+
         private readonly ITvMazeClient _tvMazeClient;
 
         public EpisodesEndpointIntegrationTests()
@@ -14,9 +18,9 @@ namespace TvMaze.Api.Client.Integration.Tests
         }
 
         [Theory]
-        [InlineData(1, EpisodeType.Regular)]
-        [InlineData(13961, EpisodeType.SignificantSpecial)]
-        [InlineData(13960, EpisodeType.InsignificantSpecial)]
+        [InlineData(ValidEpisodeIdRegularType, EpisodeType.Regular)]
+        [InlineData(ValidEpisodeIdSignificantSpecialType, EpisodeType.SignificantSpecial)]
+        [InlineData(ValidEpisodeIdInsignificantSpecialType, EpisodeType.InsignificantSpecial)]
         public async void GetEpisodeByIdAsync_ValidParameter_Success(int episodeId, EpisodeType expectedType)
         {
             // act

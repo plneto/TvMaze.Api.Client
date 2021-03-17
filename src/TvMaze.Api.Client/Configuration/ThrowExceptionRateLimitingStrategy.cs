@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using Flurl.Http;
+using TvMaze.Api.Client.Constants;
 using TvMaze.Api.Client.Exceptions;
 
 namespace TvMaze.Api.Client.Configuration
@@ -17,9 +18,11 @@ namespace TvMaze.Api.Client.Configuration
         {
             var response = await action();
 
-            if (response.StatusCode == RateLimitingConstants.StatusCode)
+            if (response.StatusCode == HttpStatusCodes.TooManyAttemps)
             {
-                throw new UnexpectedResponseStatusException("Reached rate limit of the API.", (HttpStatusCode) RateLimitingConstants.StatusCode);
+                throw new UnexpectedResponseStatusException(
+                    "Reached rate limit of the API.",
+                    (HttpStatusCode)HttpStatusCodes.TooManyAttemps);
             }
 
             return response;
