@@ -1,11 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using Flurl;
+using System.Collections.Generic;
+using System.Linq;
 using TvMaze.Api.Client.Extensions;
 
 namespace TvMaze.Api.Client.Models
 {
     public class EpisodeEmbeddings
     {
-        public const string EmbeddingValueShow = "show";
+        private static readonly IReadOnlyDictionary<EpisodeEmbeddingFlags, string> EmbeddingValueMapping =
+            new Dictionary<EpisodeEmbeddingFlags, string>
+            {
+                {EpisodeEmbeddingFlags.Show, "show"}
+            };
 
         public static string AddQueryStringToUrl(string url, EpisodeEmbeddingFlags embeddingFlags)
         {
@@ -14,14 +20,9 @@ namespace TvMaze.Api.Client.Models
                 return url;
             }
 
-            var embeddingValues = new List<string>();
-
-            if (embeddingFlags.HasFlag(EpisodeEmbeddingFlags.Show))
-            {
-                embeddingValues.Add(EmbeddingValueShow);
-            }
-
-            return url + (url.Contains("?") ? "&" : "?") + embeddingValues.ToEmbedQueryString();
+            return url.SetQueryParam(TvMazeQueryParameters.EmbedArray, embeddingFlags
+                .GetSelectedFlags(EpisodeEmbeddingFlags.None)
+                .Select(flag => EmbeddingValueMapping[flag]));
         }
 
         public Show Show { get; set; }
