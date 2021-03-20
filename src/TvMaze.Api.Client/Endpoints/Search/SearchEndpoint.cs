@@ -26,14 +26,14 @@ namespace TvMaze.Api.Client.Endpoints.Search
         }
 
         /// <inheritdoc />
-        public Task<ShowSearchResult> ShowSingleSearchAsync(string query)
+        public Task<Show> ShowSingleSearchAsync(string query, ShowEmbeddingFlags embeddings = ShowEmbeddingFlags.None)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
                 throw new ArgumentNullException(nameof(query));
             }
 
-            return _httpClient.GetAsync<ShowSearchResult>($"singlesearch/shows?q={query}");
+            return _httpClient.GetAsync<Show>(ShowEmbeddings.AddQueryStringToUrl($"singlesearch/shows?q={query}", embeddings));
         }
     }
 }
