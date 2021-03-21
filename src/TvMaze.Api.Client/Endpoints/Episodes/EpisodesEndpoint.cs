@@ -14,14 +14,14 @@ namespace TvMaze.Api.Client.Endpoints.Episodes
         }
 
         /// <inheritdoc />
-        public Task<Episode> GetEpisodeMainInformationAsync(int episodeId)
+        public Task<Episode> GetEpisodeMainInformationAsync(int episodeId, EpisodeEmbeddingFlags embeddings)
         {
             if (episodeId <= 0)
             {
                 throw new ArgumentNullException(nameof(episodeId));
             }
 
-            return _httpClient.GetAsync<Episode>($"episodes/{episodeId}");
+            return _httpClient.GetAsync<Episode>(EpisodeEmbeddings.AddQueryStringToUrl($"episodes/{episodeId}", embeddings));
         }
     }
 }

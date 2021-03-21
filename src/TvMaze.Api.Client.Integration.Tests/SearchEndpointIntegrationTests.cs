@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using FluentAssertions;
+using TvMaze.Api.Client.Models;
 using Xunit;
 
 namespace TvMaze.Api.Client.Integration.Tests
@@ -62,7 +63,21 @@ namespace TvMaze.Api.Client.Integration.Tests
             var response = await _tvMazeClient.Search.ShowSingleSearchAsync(query);
 
             // assert
-            response.Should().NotBeNull();
+            response.Should().NotBeNull().And.Subject.As<Show>().Id.Should().Be(139);
+        }
+
+        [Fact]
+        public async void ShowSingleSearchAsync_ValidParameter_Embed_Success()
+        {
+            // arrange
+            const string query = "girls";
+
+            // act
+            var response = await _tvMazeClient.Search.ShowSingleSearchAsync(query, ShowEmbeddingFlags.Episodes | ShowEmbeddingFlags.Cast);
+
+            // assert
+            (response?.Embedded?.Cast).Should().NotBeNull().And.NotBeEmpty();
+            (response?.Embedded?.Episodes).Should().NotBeNull().And.NotBeEmpty();
         }
 
         [Fact]

@@ -15,14 +15,14 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         }
 
         /// <inheritdoc />
-        public Task<Show> GetShowMainInformationAsync(int showId)
+        public Task<Show> GetShowMainInformationAsync(int showId, ShowEmbeddingFlags embeddings = ShowEmbeddingFlags.None)
         {
             if (showId <= 0)
             {
                 throw new ArgumentNullException(nameof(showId));
             }
-
-            return _httpClient.GetAsync<Show>($"shows/{showId}");
+            
+            return _httpClient.GetAsync<Show>(ShowEmbeddings.AddQueryStringToUrl($"shows/{showId}", embeddings));
         }
 
         /// <inheritdoc />

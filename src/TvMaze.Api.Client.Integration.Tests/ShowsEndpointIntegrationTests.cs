@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using FluentAssertions;
+using TvMaze.Api.Client.Models;
 using Xunit;
 
 namespace TvMaze.Api.Client.Integration.Tests
@@ -25,6 +26,59 @@ namespace TvMaze.Api.Client.Integration.Tests
 
             // assert
             response.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async void GetShowMainInformationAsync_ValidParameter_EmbedEpisodes_Success()
+        {
+            // arrange
+            const int showId = 1;
+
+            // act
+            var response = await _tvMazeClient.Shows.GetShowMainInformationAsync(showId, ShowEmbeddingFlags.Episodes);
+
+            // assert
+            (response?.Embedded?.Episodes).Should().NotBeNull().And.NotBeEmpty();
+        }
+
+        [Fact]
+        public async void GetShowMainInformationAsync_ValidParameter_EmbedPreviousEpisode_Success()
+        {
+            // arrange
+            const int showId = 1;
+
+            // act
+            var response = await _tvMazeClient.Shows.GetShowMainInformationAsync(showId, ShowEmbeddingFlags.PreviousEpisode);
+
+            // assert
+            (response?.Embedded?.PreviousEpisode).Should().NotBeNull();
+        }
+
+        [Fact]
+        public async void GetShowMainInformationAsync_ValidParameter_EmbedCast_Success()
+        {
+            // arrange
+            const int showId = 1;
+
+            // act
+            var response = await _tvMazeClient.Shows.GetShowMainInformationAsync(showId, ShowEmbeddingFlags.Cast);
+
+            // assert
+            (response?.Embedded?.Cast).Should().NotBeNull().And.NotBeEmpty();
+        }
+
+        [Fact]
+        public async void GetShowMainInformationAsync_ValidParameter_EmbedMultiple_Success()
+        {
+            // arrange
+            const int showId = 1;
+
+            // act
+            var response = await _tvMazeClient.Shows.GetShowMainInformationAsync(showId, ShowEmbeddingFlags.Episodes | ShowEmbeddingFlags.Cast);
+
+            // assert
+            (response?.Embedded?.Episodes).Should().NotBeNull().And.NotBeEmpty();
+            (response?.Embedded?.Cast).Should().NotBeNull().And.NotBeEmpty();
         }
 
         [Fact]

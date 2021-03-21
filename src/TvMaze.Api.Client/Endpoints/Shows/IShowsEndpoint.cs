@@ -9,12 +9,13 @@ namespace TvMaze.Api.Client.Endpoints.Shows
     {
         /// <summary>
         /// Retrieve all primary information for a given show.
-        ///
+        /// 
         /// https://www.tvmaze.com/api#show-main-information
         /// </summary>
         /// <param name="showId">The show ID</param>
+        /// <param name="embeddings">Additional information to include in the response.</param>
         /// <returns>Return all primary information for a given show.</returns>
-        Task<Show> GetShowMainInformationAsync(int showId);
+        Task<Show> GetShowMainInformationAsync(int showId, ShowEmbeddingFlags embeddings = ShowEmbeddingFlags.None);
 
         /// <summary>
         /// A complete list of episodes for the given show.

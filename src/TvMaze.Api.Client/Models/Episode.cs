@@ -34,5 +34,8 @@ namespace TvMaze.Api.Client.Models
 
         [JsonProperty("_links")]
         public Links Links { get; set; }
+
+        [JsonProperty("_embedded")]
+        public EpisodeEmbeddings Embedded { get; set; }
     }
 }

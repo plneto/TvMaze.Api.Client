@@ -28,6 +28,19 @@ namespace TvMaze.Api.Client.Integration.Tests
         }
 
         [Fact]
+        public async void GetEpisodeByIdAsync_ValidParameter_EmbeddedShow_Success()
+        {
+            // arrange
+            const int episodeId = 1;
+
+            // act
+            var response = await _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(episodeId, EpisodeEmbeddingFlags.Show);
+
+            // assert
+            (response?.Embedded?.Show).Should().NotBeNull().And.Subject.As<Show>().Id.Should().Be(1);
+        }
+
+        [Fact]
         public async void GetEpisodeByIdAsync_ValidParameter_NotFound()
         {
             // arrange

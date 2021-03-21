@@ -18,11 +18,12 @@ namespace TvMaze.Api.Client.Endpoints.Search
         /// <summary>
         /// Search through all the shows in the TVmaze database by the show's
         /// name and returns one result, or no result at all.
-        ///
+        /// 
         /// https://www.tvmaze.com/api#show-single-search
         /// </summary>
         /// <param name="query">The show's name</param>
+        /// <param name="embeddings">Additional information to include in the response.</param>
         /// <returns>Returns exactly one result, or no result at all.</returns>
-        Task<ShowSearchResult> ShowSingleSearchAsync(string query);
+        Task<Show> ShowSingleSearchAsync(string query, ShowEmbeddingFlags embeddings = ShowEmbeddingFlags.None);
     }
 }
