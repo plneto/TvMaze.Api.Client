@@ -19,10 +19,10 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetShowMainInformationAsync_ValidParameter_Success()
         {
             // arrange
-            const int showId = 1;
+            const int validShowId = 1;
 
             // act
-            var response = await _tvMazeClient.Shows.GetShowMainInformationAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowMainInformationAsync(validShowId);
 
             // assert
             response.Should().NotBeNull();
@@ -85,36 +85,36 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetShowMainInformationAsync_ValidParameter_NotFound()
         {
             // arrange
-            const int showId = int.MaxValue;
+            const int notFoundShowId = int.MaxValue;
 
             // act
-            var response = await _tvMazeClient.Shows.GetShowMainInformationAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowMainInformationAsync(notFoundShowId);
 
             // assert
             response.Should().BeNull();
         }
 
         [Fact]
-        public async void GetShowMainInformationAsync_InvalidId_ThrowsArgumentNullException()
+        public async void GetShowMainInformationAsync_InvalidId_ThrowsArgumentException()
         {
             // arrange
-            const int showId = 0;
+            const int invalidShowId = 0;
 
             // act
-            Func<Task> action = () => _tvMazeClient.Shows.GetShowMainInformationAsync(showId);
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowMainInformationAsync(invalidShowId);
 
             // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
+            await action.Should().ThrowAsync<ArgumentException>();
         }
 
         [Fact]
         public async void GetEpisodeListAsync_ValidParameter_Success()
         {
             // arrange
-            const int showId = 1;
+            const int validShowId = 1;
 
             // act
-            var response = await _tvMazeClient.Shows.GetShowEpisodeListAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowEpisodeListAsync(validShowId);
 
             // assert
             response.Should().NotBeNull();
@@ -124,36 +124,36 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetEpisodeListAsync_ValidParameter_NotFound()
         {
             // arrange
-            const int showId = int.MaxValue;
+            const int notFoundShowId = int.MaxValue;
 
             // act
-            var response = await _tvMazeClient.Shows.GetShowEpisodeListAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowEpisodeListAsync(notFoundShowId);
 
             // assert
             response.Should().NotBeNull().And.BeEmpty();
         }
 
         [Fact]
-        public async void GetEpisodeListAsync_InvalidId_ThrowsArgumentNullException()
+        public async void GetEpisodeListAsync_InvalidId_ThrowsArgumentException()
         {
             // arrange
-            const int showId = 0;
+            const int invalidShowId = 0;
 
             // act
-            Func<Task> action = () => _tvMazeClient.Shows.GetShowEpisodeListAsync(showId);
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowEpisodeListAsync(invalidShowId);
 
             // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
+            await action.Should().ThrowAsync<ArgumentException>();
         }
 
         [Fact]
         public async void GetShowSeasonsAsync_ValidParameter_Success()
         {
             // arrange
-            const int showId = 1;
+            const int validShowId = 1;
 
             // act
-            var response = await _tvMazeClient.Shows.GetShowSeasonsAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowSeasonsAsync(validShowId);
 
             // assert
             response.Should().NotBeNull();
@@ -163,36 +163,36 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetShowSeasonsAsync_ValidParameter_NotFound()
         {
             // arrange
-            const int showId = int.MaxValue;
+            const int notFoundShowId = int.MaxValue;
 
             // act
-            var response = await _tvMazeClient.Shows.GetShowSeasonsAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowSeasonsAsync(notFoundShowId);
 
             // assert
             response.Should().NotBeNull().And.BeEmpty();
         }
 
         [Fact]
-        public async void GetShowSeasonsAsync_InvalidId_ThrowsArgumentNullException()
+        public async void GetShowSeasonsAsync_InvalidId_ThrowsArgumentException()
         {
             // arrange
-            const int showId = 0;
+            const int invalidShowId = 0;
 
             // act
-            Func<Task> action = () => _tvMazeClient.Shows.GetShowSeasonsAsync(showId);
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowSeasonsAsync(invalidShowId);
 
             // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
+            await action.Should().ThrowAsync<ArgumentException>();
         }
 
         [Fact]
         public async void GetSeasonEpisodesAsync_ValidParameter_Success()
         {
             // arrange
-            const int seasonId = 1;
+            const int validSeasonId = 1;
 
             // act
-            var response = await _tvMazeClient.Shows.GetSeasonEpisodesAsync(seasonId);
+            var response = await _tvMazeClient.Shows.GetSeasonEpisodesAsync(validSeasonId);
 
             // assert
             response.Should().NotBeNull();
@@ -202,38 +202,38 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetSeasonEpisodesAsync_ValidParameter_NotFound()
         {
             // arrange
-            const int seasonId = int.MaxValue;
+            const int notFoundSeasonId = int.MaxValue;
 
             // act
-            var response = await _tvMazeClient.Shows.GetSeasonEpisodesAsync(seasonId);
+            var response = await _tvMazeClient.Shows.GetSeasonEpisodesAsync(notFoundSeasonId);
 
             // assert
             response.Should().NotBeNull().And.BeEmpty();
         }
 
         [Fact]
-        public async void GetSeasonEpisodesAsync_InvalidId_ThrowsArgumentNullException()
+        public async void GetSeasonEpisodesAsync_InvalidId_ThrowsArgumentException()
         {
             // arrange
-            const int seasonId = 0;
+            const int invalidSeasonId = 0;
 
             // act
-            Func<Task> action = () => _tvMazeClient.Shows.GetSeasonEpisodesAsync(seasonId);
+            Func<Task> action = () => _tvMazeClient.Shows.GetSeasonEpisodesAsync(invalidSeasonId);
 
             // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
+            await action.Should().ThrowAsync<ArgumentException>();
         }
 
         [Fact]
         public async void GetEpisodeByNumberAsync_ValidParameter_Success()
         {
             // arrange
-            const int showId = 1;
-            const int season = 1;
-            const int number = 1;
+            const int validShowId = 1;
+            const int validSeason = 1;
+            const int validEpisodeNumber = 1;
 
             // act
-            var response = await _tvMazeClient.Shows.GetEpisodeByNumberAsync(showId, season, number);
+            var response = await _tvMazeClient.Shows.GetEpisodeByNumberAsync(validShowId, validSeason, validEpisodeNumber);
 
             // assert
             response.Should().NotBeNull();
@@ -243,12 +243,12 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetEpisodeByNumberAsync_ValidParameter_NotFound()
         {
             // arrange
-            const int showId = int.MaxValue;
-            const int season = 1;
-            const int number = 1;
+            const int notFoundShowId = int.MaxValue;
+            const int validSeason = 1;
+            const int validEpisodeNumber = 1;
 
             // act
-            var response = await _tvMazeClient.Shows.GetEpisodeByNumberAsync(showId, season, number);
+            var response = await _tvMazeClient.Shows.GetEpisodeByNumberAsync(notFoundShowId, validSeason, validEpisodeNumber);
 
             // assert
             response.Should().BeNull();
@@ -258,52 +258,52 @@ namespace TvMaze.Api.Client.Integration.Tests
         [InlineData(0, 1, 1)]
         [InlineData(1, 0, 1)]
         [InlineData(1, 1, 0)]
-        public async void GetEpisodeByNumberAsync_InvalidParameters_ThrowsArgumentNullException(int showId, int season, int number)
+        public async void GetEpisodeByNumberAsync_InvalidParameters_ThrowsArgumentException(int showId, int season, int number)
         {
             // act
             Func<Task> action = () => _tvMazeClient.Shows.GetEpisodeByNumberAsync(showId, season, number);
 
             // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
+            await action.Should().ThrowAsync<ArgumentException>();
         }
         
         [Fact]
-        public async void GetEpisodesByDate_ValidParameter_Success()
+        public async void GetEpisodesByDateAsync_ValidParameter_Success()
         {
             // arrange
-            const int showId = 1;
-            var date = new DateTime(2013, 06, 24);
+            const int validShowId = 1;
+            var validDate = new DateTime(2013, 06, 24);
 
             // act
-            var response = await _tvMazeClient.Shows.GetEpisodesByDateAsync(showId, date);
+            var response = await _tvMazeClient.Shows.GetEpisodesByDateAsync(validShowId, validDate);
 
             // assert
             response.Should().NotBeNull().And.NotBeEmpty();
         }
 
         [Fact]
-        public async void GetEpisodesByDate_ValidParameter_NoEpisodeFound()
+        public async void GetEpisodesByDateAsync_ValidParameter_NoEpisodeFound()
         {
             // arrange
-            const int showId = 1;
-            var date = DateTime.MinValue;
+            const int validShowId = 1;
+            var dateWithNoEpisodes = new DateTime(2013, 7, 2);
 
             // act
-            var response = await _tvMazeClient.Shows.GetEpisodesByDateAsync(showId, date);
+            var response = await _tvMazeClient.Shows.GetEpisodesByDateAsync(validShowId, dateWithNoEpisodes);
 
             // assert
             response.Should().NotBeNull().And.BeEmpty();
         }
 
         [Fact]
-        public async void GetEpisodesByDate_InvalidId_ThrowsArgumentNullException()
+        public async void GetEpisodesByDateAsync_InvalidId_ThrowsArgumentException()
         {
             // arrange
-            const int showId = 0;
-            var date = DateTime.MinValue;
+            const int invalidShowId = 0;
+            var validDate = DateTime.Today;
 
             // act
-            Func<Task> action = () => _tvMazeClient.Shows.GetEpisodesByDateAsync(showId, date);
+            Func<Task> action = () => _tvMazeClient.Shows.GetEpisodesByDateAsync(invalidShowId, validDate);
 
             // assert
             await action.Should().ThrowAsync<ArgumentException>();
@@ -313,10 +313,10 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetShowCastAsync_ValidParameters_Success()
         {
             // arrange 
-            const int showId = 1;
+            const int validShowId = 1;
             
             // act
-            var response = await _tvMazeClient.Shows.GetShowCastAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowCastAsync(validShowId);
 
             // assert
             response.Should().NotBeNull();
@@ -326,36 +326,36 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetShowCastAsync_ValidParameters_NotFound()
         {
             // arrange
-            const int showId = int.MaxValue;
+            const int notFoundShowId = int.MaxValue;
 
             // act
-            var response = await _tvMazeClient.Shows.GetShowCastAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowCastAsync(notFoundShowId);
 
             // assert
             response.Should().NotBeNull().And.BeEmpty();
         }
         
         [Fact]
-        public async void GetShowCastAsync_InvalidId_ThrowsArgumentNullException()
+        public async void GetShowCastAsync_InvalidId_ThrowsArgumentException()
         {
             // arrange
-            const int showId = 0;
+            const int invalidShowId = 0;
 
             // act
-            Func<Task> action = () => _tvMazeClient.Shows.GetShowCastAsync(showId);
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowCastAsync(invalidShowId);
 
             // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
+            await action.Should().ThrowAsync<ArgumentException>();
         }
         
         [Fact]
         public async void GetShowCrewAsync_ValidParameters_Success()
         {
             // arrange 
-            const int showId = 1;
+            const int validShowId = 1;
             
             // act
-            var response = await _tvMazeClient.Shows.GetShowCrewAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowCrewAsync(validShowId);
 
             // assert
             response.Should().NotBeNull();
@@ -365,36 +365,36 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetShowCrewAsync_ValidParameters_NotFound()
         {
             // arrange 
-            const int showId = int.MaxValue;
+            const int notFoundShowId = int.MaxValue;
             
             // act
-            var response = await _tvMazeClient.Shows.GetShowCrewAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowCrewAsync(notFoundShowId);
 
             // assert
             response.Should().NotBeNull();
         }
         
         [Fact]
-        public async void GetShowCrewAsync_InvalidId_ThrowsArgumentNullException()
+        public async void GetShowCrewAsync_InvalidId_ThrowsArgumentException()
         {
             // arrange
-            const int showId = 0;
+            const int invalidShowId = 0;
 
             // act
-            Func<Task> action = () => _tvMazeClient.Shows.GetShowCrewAsync(showId);
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowCrewAsync(invalidShowId);
 
             // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
+            await action.Should().ThrowAsync<ArgumentException>();
         }
         
         [Fact]
         public async void GetShowImagesAsync_ValidParameters_Success()
         {
             // arrange 
-            const int showId = 1;
+            const int validShowId = 1;
             
             // act
-            var response = await _tvMazeClient.Shows.GetShowImagesAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowImagesAsync(validShowId);
 
             // assert
             response.Should().NotBeNull();
@@ -404,26 +404,26 @@ namespace TvMaze.Api.Client.Integration.Tests
         public async void GetShowImagesAsync_ValidParameters_NotFound()
         {
             // arrange 
-            const int showId = int.MaxValue;
+            const int notFoundShowId = int.MaxValue;
             
             // act
-            var response = await _tvMazeClient.Shows.GetShowImagesAsync(showId);
+            var response = await _tvMazeClient.Shows.GetShowImagesAsync(notFoundShowId);
 
             // assert
             response.Should().NotBeNull().And.BeEmpty();
         }
         
         [Fact]
-        public async void GetShowImagesAsync_InvalidId_ThrowsArgumentNullException()
+        public async void GetShowImagesAsync_InvalidId_ThrowsArgumentException()
         {
             // arrange
-            const int showId = 0;
+            const int invalidShowId = 0;
 
             // act
-            Func<Task> action = () => _tvMazeClient.Shows.GetShowImagesAsync(showId);
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowImagesAsync(invalidShowId);
 
             // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
+            await action.Should().ThrowAsync<ArgumentException>();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace TvMaze.Api.Client.Configuration
         public RetryRateLimitingStrategy(int retries, TimeSpan retryInterval)
         {
             _policy = Policy
-                .HandleResult<IFlurlResponse>(response => response.StatusCode == HttpStatusCodes.TooManyAttemps)
+                .HandleResult<IFlurlResponse>(response => response.StatusCode == HttpStatusCodes.TooManyAttempts)
                 .WaitAndRetryAsync(retries, i => retryInterval);
         }
 

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Flurl.Http.Testing;
 using TvMaze.Api.Client.Configuration;
+using TvMaze.Api.Client.Constants;
 using TvMaze.Api.Client.Exceptions;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace TvMaze.Api.Client.Tests
         public RateLimitingStrategyTests()
         {
             _httpTest = new HttpTest();
-            _httpTest.RespondWith(string.Empty, RateLimitingConstants.StatusCode);
+            _httpTest.RespondWith(string.Empty, HttpStatusCodes.TooManyAttempts);
         }
         
         [Fact]

@@ -2,6 +2,6 @@
 {
     public static class HttpStatusCodes
     {
-        public static int TooManyAttemps = 429;
+        public static int TooManyAttempts = 429;
     }
 }

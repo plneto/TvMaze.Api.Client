@@ -18,11 +18,11 @@ namespace TvMaze.Api.Client.Configuration
         {
             var response = await action();
 
-            if (response.StatusCode == HttpStatusCodes.TooManyAttemps)
+            if (response.StatusCode == HttpStatusCodes.TooManyAttempts)
             {
                 throw new UnexpectedResponseStatusException(
                     "Reached rate limit of the API.",
-                    (HttpStatusCode)HttpStatusCodes.TooManyAttemps);
+                    (HttpStatusCode)HttpStatusCodes.TooManyAttempts);
             }
 
             return response;

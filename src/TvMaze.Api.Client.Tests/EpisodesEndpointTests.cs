@@ -67,16 +67,16 @@ namespace TvMaze.Api.Client.Tests
         }
 
         [Fact]
-        public async void GetEpisodeByIdAsync_InvalidId_ThrowsArgumentNullException()
+        public async void GetEpisodeByIdAsync_InvalidId_ThrowsArgumentException()
         {
             // arrange
-            const int episodeId = 0;
+            const int invalidEpisodeId = 0;
 
             // act
-            Func<Task> action = () => _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(episodeId);
+            Func<Task> action = () => _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(invalidEpisodeId);
 
             // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
+            await action.Should().ThrowAsync<ArgumentException>();
         }
 
         public void Dispose()
