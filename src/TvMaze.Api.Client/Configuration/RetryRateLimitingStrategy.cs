@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Flurl.Http;
 using Polly;
+using TvMaze.Api.Client.Constants;
 
 namespace TvMaze.Api.Client.Configuration
 {
@@ -31,7 +32,7 @@ namespace TvMaze.Api.Client.Configuration
         public RetryRateLimitingStrategy(int retries, TimeSpan retryInterval)
         {
             _policy = Policy
-                .HandleResult<IFlurlResponse>(response => response.StatusCode == RateLimitingConstants.StatusCode)
+                .HandleResult<IFlurlResponse>(response => response.StatusCode == HttpStatusCodes.TooManyAttempts)
                 .WaitAndRetryAsync(retries, i => retryInterval);
         }
 

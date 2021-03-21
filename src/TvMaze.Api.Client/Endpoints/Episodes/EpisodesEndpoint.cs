@@ -18,7 +18,7 @@ namespace TvMaze.Api.Client.Endpoints.Episodes
         {
             if (episodeId <= 0)
             {
-                throw new ArgumentNullException(nameof(episodeId));
+                throw new ArgumentException(nameof(episodeId));
             }
 
             return _httpClient.GetAsync<Episode>(EpisodeEmbeddings.AddQueryStringToUrl($"episodes/{episodeId}", embeddings));

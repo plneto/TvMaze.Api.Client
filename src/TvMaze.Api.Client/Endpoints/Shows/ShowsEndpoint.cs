@@ -19,7 +19,7 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         {
             if (showId <= 0)
             {
-                throw new ArgumentNullException(nameof(showId));
+                throw new ArgumentException(nameof(showId));
             }
             
             return _httpClient.GetAsync<Show>(ShowEmbeddings.AddQueryStringToUrl($"shows/{showId}", embeddings));
@@ -30,7 +30,7 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         {
             if (showId <= 0)
             {
-                throw new ArgumentNullException(nameof(showId));
+                throw new ArgumentException(nameof(showId));
             }
 
             return _httpClient.GetAsync<IEnumerable<Episode>>($"shows/{showId}/episodes");
@@ -41,17 +41,17 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         {
             if (showId <= 0)
             {
-                throw new ArgumentNullException(nameof(showId));
+                throw new ArgumentException(nameof(showId));
             }
 
             if (season <= 0)
             {
-                throw new ArgumentNullException(nameof(season));
+                throw new ArgumentException(nameof(season));
             }
 
             if (episodeNumber <= 0)
             {
-                throw new ArgumentNullException(nameof(episodeNumber));
+                throw new ArgumentException(nameof(episodeNumber));
             }
 
             return _httpClient.GetAsync<Episode>($"shows/{showId}/episodebynumber?season={season}&number={episodeNumber}");
@@ -62,7 +62,12 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         {
             if (showId <= 0)
             {
-                throw new ArgumentNullException(nameof(showId));
+                throw new ArgumentException(nameof(showId));
+            }
+
+            if (date == default)
+            {
+                throw new ArgumentException(nameof(date));
             }
 
             return _httpClient.GetAsync<IEnumerable<Episode>>($"shows/{showId}/episodesbydate?date={date:yyyy-MM-dd}");
@@ -73,7 +78,7 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         {
             if (showId <= 0)
             {
-                throw new ArgumentNullException(nameof(showId));
+                throw new ArgumentException(nameof(showId));
             }
 
             return _httpClient.GetAsync<IEnumerable<Season>>($"shows/{showId}/seasons");
@@ -84,7 +89,7 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         {
             if (seasonId <= 0)
             {
-                throw new ArgumentNullException(nameof(seasonId));
+                throw new ArgumentException(nameof(seasonId));
             }
 
             return _httpClient.GetAsync<IEnumerable<Episode>>($"seasons/{seasonId}/episodes");
@@ -95,7 +100,7 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         {
             if (showId <= 0)
             {
-                throw new ArgumentNullException(nameof(showId));
+                throw new ArgumentException(nameof(showId));
             }
 
             return _httpClient.GetAsync<IEnumerable<Cast>>($"shows/{showId}/cast");
@@ -106,7 +111,7 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         {
             if (showId <= 0)
             {
-                throw new ArgumentNullException(nameof(showId));
+                throw new ArgumentException(nameof(showId));
             }
 
             return _httpClient.GetAsync<IEnumerable<Crew>>($"shows/{showId}/crew");
@@ -117,7 +122,7 @@ namespace TvMaze.Api.Client.Endpoints.Shows
         {
             if (showId <= 0)
             {
-                throw new ArgumentNullException(nameof(showId));
+                throw new ArgumentException(nameof(showId));
             }
 
             return _httpClient.GetAsync<IEnumerable<ShowImage>>($"shows/{showId}/images");

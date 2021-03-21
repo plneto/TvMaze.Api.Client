@@ -14,29 +14,29 @@ namespace TvMaze.Api.Client.Endpoints.Lookup
         }
 
         /// <inheritdoc />
-        public Task<Show> GetShowByTvRageId(int tvRageId)
+        public Task<Show> GetShowByTvRageIdAsync(int tvRageId)
         {
             if (tvRageId <= 0)
             {
-                throw new ArgumentNullException(nameof(tvRageId));
+                throw new ArgumentException(nameof(tvRageId));
             }
 
             return _httpClient.GetAsync<Show>($"lookup/shows?tvrage={tvRageId}");
         }
 
         /// <inheritdoc />
-        public Task<Show> GetShowByTheTvdbId(int theTvdbId)
+        public Task<Show> GetShowByTheTvdbIdAsync(int theTvdbId)
         {
             if (theTvdbId <= 0)
             {
-                throw new ArgumentNullException(nameof(theTvdbId));
+                throw new ArgumentException(nameof(theTvdbId));
             }
 
             return _httpClient.GetAsync<Show>($"lookup/shows?thetvdb={theTvdbId}");
         }
 
         /// <inheritdoc />
-        public Task<Show> GetShowByImdbId(string imdbId)
+        public Task<Show> GetShowByImdbIdAsync(string imdbId)
         {
             if(string.IsNullOrEmpty(imdbId))
             {

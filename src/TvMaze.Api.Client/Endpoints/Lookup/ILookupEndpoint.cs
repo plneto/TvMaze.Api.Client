@@ -12,7 +12,7 @@ namespace TvMaze.Api.Client.Endpoints.Lookup
         /// </summary>
         /// <param name="tvRageId">The TVRage ID.</param>
         /// <returns>Returns the show information.</returns>
-        Task<Show> GetShowByTvRageId(int tvRageId);
+        Task<Show> GetShowByTvRageIdAsync(int tvRageId);
 
         /// <summary>
         /// Lookup show by TheTVDB ID.
@@ -21,13 +21,13 @@ namespace TvMaze.Api.Client.Endpoints.Lookup
         /// </summary>
         /// <param name="theTvdbId">The TheTVDB ID.</param>
         /// <returns>Returns the show information.</returns>
-        Task<Show> GetShowByTheTvdbId(int theTvdbId);
+        Task<Show> GetShowByTheTvdbIdAsync(int theTvdbId);
 
         /// <summary>
         /// Lookup show by IMDB ID.
         /// </summary>
         /// <param name="imdbId">The IMDB ID.</param>
         /// <returns>Returns the show information.</returns>
-        Task<Show> GetShowByImdbId(string imdbId);
+        Task<Show> GetShowByImdbIdAsync(string imdbId);
     }
 }

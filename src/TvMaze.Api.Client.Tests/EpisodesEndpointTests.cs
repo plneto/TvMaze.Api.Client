@@ -1,16 +1,18 @@
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
 using Flurl.Http.Testing;
+using TvMaze.Api.Client.Models;
 using Xunit;
 
 namespace TvMaze.Api.Client.Tests
 {
     public class EpisodesEndpointTests : IDisposable
     {
-        private Fixture _fixture;
-        private HttpTest _httpTest;
+        private readonly Fixture _fixture;
+        private readonly HttpTest _httpTest;
         private readonly ITvMazeClient _tvMazeClient;
 
         public EpisodesEndpointTests()
@@ -34,16 +36,47 @@ namespace TvMaze.Api.Client.Tests
         }
 
         [Fact]
-        public async void GetEpisodeByIdAsync_InvalidId_ThrowsArgumentNullException()
+        public async void GetEpisodeByIdAsync_ValidId_ReturnsExpectedEpisode()
         {
             // arrange
-            const int episodeId = 0;
+            var episodeId = _fixture.Create<int>();
+            var expectedEpisode = _fixture.Build<Episode>().Without(x => x.Embedded).Create();
+
+            _httpTest.RespondWithJson(expectedEpisode, (int)HttpStatusCode.OK);
 
             // act
-            Func<Task> action = () => _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(episodeId);
+            var response = await _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(episodeId);
 
             // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
+            response.Should().BeEquivalentTo(expectedEpisode);
+        }
+
+        [Fact]
+        public async void GetEpisodeByIdAsync_ValidIdNotFound_ReturnsNull()
+        {
+            // arrange
+            var episodeId = _fixture.Create<int>();
+
+            _httpTest.RespondWithJson("Not Found", (int)HttpStatusCode.NotFound);
+
+            // act
+            var response = await _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(episodeId);
+
+            // assert
+            response.Should().BeNull();
+        }
+
+        [Fact]
+        public async void GetEpisodeByIdAsync_InvalidId_ThrowsArgumentException()
+        {
+            // arrange
+            const int invalidEpisodeId = 0;
+
+            // act
+            Func<Task> action = () => _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(invalidEpisodeId);
+
+            // assert
+            await action.Should().ThrowAsync<ArgumentException>();
         }
 
         public void Dispose()
