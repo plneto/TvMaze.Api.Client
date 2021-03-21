@@ -40,7 +40,7 @@ namespace TvMaze.Api.Client.Tests
         {
             // arrange
             var tvRageId = _fixture.Create<int>();
-            var expectedShow = _fixture.Create<Show>();
+            var expectedShow = _fixture.Build<Show>().Without(x => x.Embedded).Create();
 
             _httpTest.RespondWithJson(expectedShow, (int)HttpStatusCode.OK);
 
