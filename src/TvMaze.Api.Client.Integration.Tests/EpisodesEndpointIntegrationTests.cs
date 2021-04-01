@@ -1,4 +1,6 @@
+using System.Net.Http;
 using FluentAssertions;
+using TvMaze.Api.Client.Configuration;
 using TvMaze.Api.Client.Models;
 using Xunit;
 
@@ -14,7 +16,7 @@ namespace TvMaze.Api.Client.Integration.Tests
 
         public EpisodesEndpointIntegrationTests()
         {
-            _tvMazeClient = new TvMazeClient();
+            _tvMazeClient = new TvMazeClient(new HttpClient(), new RetryRateLimitingStrategy());
         }
 
         [Theory]

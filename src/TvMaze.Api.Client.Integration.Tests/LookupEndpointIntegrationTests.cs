@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System.Net.Http;
+using FluentAssertions;
+using TvMaze.Api.Client.Configuration;
 using Xunit;
 
 namespace TvMaze.Api.Client.Integration.Tests
@@ -9,7 +11,7 @@ namespace TvMaze.Api.Client.Integration.Tests
 
         public LookupEndpointIntegrationTests()
         {
-            _tvMazeClient = new TvMazeClient();
+            _tvMazeClient = new TvMazeClient(new HttpClient(), new RetryRateLimitingStrategy());
         }
 
         [Fact]

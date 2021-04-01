@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Flurl;
 using TvMaze.Api.Client.Models;
 
 namespace TvMaze.Api.Client.Endpoints.Shows
@@ -21,19 +22,25 @@ namespace TvMaze.Api.Client.Endpoints.Shows
             {
                 throw new ArgumentException(nameof(showId));
             }
-            
+
             return _httpClient.GetAsync<Show>(ShowEmbeddings.AddQueryStringToUrl($"shows/{showId}", embeddings));
         }
 
         /// <inheritdoc />
-        public Task<IEnumerable<Episode>> GetShowEpisodeListAsync(int showId)
+        public Task<IEnumerable<Episode>> GetShowEpisodeListAsync(int showId, bool includeSpecials = false)
         {
             if (showId <= 0)
             {
                 throw new ArgumentException(nameof(showId));
             }
 
-            return _httpClient.GetAsync<IEnumerable<Episode>>($"shows/{showId}/episodes");
+            var url = $"shows/{showId}/episodes";
+            if (includeSpecials)
+            {
+                url = url.SetQueryParam(TvMazeQueryParameters.Specials, TvMazeQueryParameters.ValueTrue);
+            }
+
+            return _httpClient.GetAsync<IEnumerable<Episode>>(url);
         }
 
         /// <inheritdoc />
@@ -117,6 +124,16 @@ namespace TvMaze.Api.Client.Endpoints.Shows
             return _httpClient.GetAsync<IEnumerable<Crew>>($"shows/{showId}/crew");
         }
 
+        public Task<IEnumerable<ShowAlias>> GetShowAkasAsync(int showId)
+        {
+            if (showId <= 0)
+            {
+                throw new ArgumentException(nameof(showId));
+            }
+
+            return _httpClient.GetAsync<IEnumerable<ShowAlias>>($"shows/{showId}/akas");
+        }
+
         /// <inheritdoc />
         public Task<IEnumerable<ShowImage>> GetShowImagesAsync(int showId)
         {
@@ -126,6 +143,17 @@ namespace TvMaze.Api.Client.Endpoints.Shows
             }
 
             return _httpClient.GetAsync<IEnumerable<ShowImage>>($"shows/{showId}/images");
+        }
+
+        /// <inheritdoc />
+        public Task<IEnumerable<Show>> GetShowsAsync(int page)
+        {
+            if (page < 0)
+            {
+                throw new ArgumentException(nameof(page));
+            }
+
+            return _httpClient.GetAsync<IEnumerable<Show>>("shows".SetQueryParam(TvMazeQueryParameters.Page, page));
         }
     }
 }

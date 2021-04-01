@@ -1,6 +1,8 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using TvMaze.Api.Client.Configuration;
 using TvMaze.Api.Client.Models;
 using Xunit;
 
@@ -12,7 +14,7 @@ namespace TvMaze.Api.Client.Integration.Tests
 
         public ShowsEndpointIntegrationTests()
         {
-            _tvMazeClient = new TvMazeClient();
+            _tvMazeClient = new TvMazeClient(new HttpClient(), new RetryRateLimitingStrategy());
         }
 
         [Fact]
@@ -117,7 +119,20 @@ namespace TvMaze.Api.Client.Integration.Tests
             var response = await _tvMazeClient.Shows.GetShowEpisodeListAsync(validShowId);
 
             // assert
-            response.Should().NotBeNull();
+            response.Should().NotBeNull().And.NotBeEmpty().And.NotContain(episode => episode.Type != EpisodeType.Regular);
+        }
+
+        [Fact]
+        public async void GetEpisodeListAsync_ValidParameter_WithSpecials_Success()
+        {
+            // arrange
+            const int validShowId = 1;
+
+            // act
+            var response = await _tvMazeClient.Shows.GetShowEpisodeListAsync(validShowId, true);
+
+            // assert
+            response.Should().NotBeNull().And.NotBeEmpty().And.Contain(episode => episode.Type != EpisodeType.Regular);
         }
 
         [Fact]
@@ -266,7 +281,7 @@ namespace TvMaze.Api.Client.Integration.Tests
             // assert
             await action.Should().ThrowAsync<ArgumentException>();
         }
-        
+
         [Fact]
         public async void GetEpisodesByDateAsync_ValidParameter_Success()
         {
@@ -314,7 +329,7 @@ namespace TvMaze.Api.Client.Integration.Tests
         {
             // arrange 
             const int validShowId = 1;
-            
+
             // act
             var response = await _tvMazeClient.Shows.GetShowCastAsync(validShowId);
 
@@ -334,7 +349,7 @@ namespace TvMaze.Api.Client.Integration.Tests
             // assert
             response.Should().NotBeNull().And.BeEmpty();
         }
-        
+
         [Fact]
         public async void GetShowCastAsync_InvalidId_ThrowsArgumentException()
         {
@@ -347,13 +362,13 @@ namespace TvMaze.Api.Client.Integration.Tests
             // assert
             await action.Should().ThrowAsync<ArgumentException>();
         }
-        
+
         [Fact]
         public async void GetShowCrewAsync_ValidParameters_Success()
         {
             // arrange 
             const int validShowId = 1;
-            
+
             // act
             var response = await _tvMazeClient.Shows.GetShowCrewAsync(validShowId);
 
@@ -366,14 +381,14 @@ namespace TvMaze.Api.Client.Integration.Tests
         {
             // arrange 
             const int notFoundShowId = int.MaxValue;
-            
+
             // act
             var response = await _tvMazeClient.Shows.GetShowCrewAsync(notFoundShowId);
 
             // assert
             response.Should().NotBeNull();
         }
-        
+
         [Fact]
         public async void GetShowCrewAsync_InvalidId_ThrowsArgumentException()
         {
@@ -386,13 +401,52 @@ namespace TvMaze.Api.Client.Integration.Tests
             // assert
             await action.Should().ThrowAsync<ArgumentException>();
         }
-        
+
+        [Fact]
+        public async void GetShowAkas_ValidParameters_Success()
+        {
+            // arrange 
+            const int validShowId = 1;
+
+            // act
+            var response = await _tvMazeClient.Shows.GetShowAkasAsync(validShowId);
+
+            // assert
+            response.Should().NotBeNull().And.NotBeEmpty();
+        }
+
+        [Fact]
+        public async void GetShowAkas_ValidParameters_NotFound()
+        {
+            // arrange 
+            const int notFoundShowId = int.MaxValue;
+
+            // act
+            var response = await _tvMazeClient.Shows.GetShowAkasAsync(notFoundShowId);
+
+            // assert
+            response.Should().NotBeNull().And.BeEmpty();
+        }
+
+        [Fact]
+        public async void GetShowAkas_InvalidId_ThrowsArgumentException()
+        {
+            // arrange
+            const int invalidShowId = 0;
+
+            // act
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowAkasAsync(invalidShowId);
+
+            // assert
+            await action.Should().ThrowAsync<ArgumentException>();
+        }
+
         [Fact]
         public async void GetShowImagesAsync_ValidParameters_Success()
         {
             // arrange 
             const int validShowId = 1;
-            
+
             // act
             var response = await _tvMazeClient.Shows.GetShowImagesAsync(validShowId);
 
@@ -405,14 +459,14 @@ namespace TvMaze.Api.Client.Integration.Tests
         {
             // arrange 
             const int notFoundShowId = int.MaxValue;
-            
+
             // act
             var response = await _tvMazeClient.Shows.GetShowImagesAsync(notFoundShowId);
 
             // assert
             response.Should().NotBeNull().And.BeEmpty();
         }
-        
+
         [Fact]
         public async void GetShowImagesAsync_InvalidId_ThrowsArgumentException()
         {
@@ -421,6 +475,45 @@ namespace TvMaze.Api.Client.Integration.Tests
 
             // act
             Func<Task> action = () => _tvMazeClient.Shows.GetShowImagesAsync(invalidShowId);
+
+            // assert
+            await action.Should().ThrowAsync<ArgumentException>();
+        }
+
+        [Fact]
+        public async void GetShowsAsync_ValidParameters_Success()
+        {
+            // arrange 
+            const int validPage = 1;
+
+            // act
+            var response = await _tvMazeClient.Shows.GetShowsAsync(validPage);
+
+            // assert
+            response.Should().NotBeNull().And.NotBeEmpty();
+        }
+
+        [Fact]
+        public async void GetShowsAsync_ValidParameters_NotFound()
+        {
+            // arrange 
+            const int notFoundPage = int.MaxValue;
+
+            // act
+            var response = await _tvMazeClient.Shows.GetShowsAsync(notFoundPage);
+
+            // assert
+            response.Should().NotBeNull().And.BeEmpty();
+        }
+
+        [Fact]
+        public async void GetShowsAsync_InvalidPage_ThrowsArgumentException()
+        {
+            // arrange
+            const int invalidPage = -1;
+
+            // act
+            Func<Task> action = () => _tvMazeClient.Shows.GetShowImagesAsync(invalidPage);
 
             // assert
             await action.Should().ThrowAsync<ArgumentException>();
