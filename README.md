@@ -29,7 +29,6 @@ var showInformation = client.Shows.GetShowMainInformationAsync(showId);
 ### Schedule
 | Endpoint             | Status    |
 | -------------------- |:---------:|
-| Schedule             | ❌        |
 | Web/Stream Schedule  | ❌        |
 | Full Schedule        | ❌        |
 
@@ -38,31 +37,37 @@ var showInformation = client.Shows.GetShowMainInformationAsync(showId);
 | --------------------- |:---------:|
 | Show Main Information | ✅        |
 | Show Episode List     | ✅        |
+| Show Alternate List   | ❌        |
 | Episode By Number     | ✅        |
 | Episodes By Date      | ✅        |
 | Show Seasons          | ✅        |
 | Season Episodes       | ✅        |
 | Show Cast             | ✅        |
 | Show Crew             | ✅        |
-| Show AKA's            | ❌        |
+| Show AKA's            | ✅        |
 | Show Images           | ✅        |
-| Show Index            | ❌        |
+| Show Index            | ✅        |
 
 ### Episodes
 | Endpoint                 | Status    |
 | ------------------------ |:---------:|
 | Episode Main Information | ✅        |
+| Episode Guest Cast       | ❌        |
+| Episode Guesst Crew      | ❌        |
 
 
 ### People
-| Endpoint                 | Status    |
-| ------------------------ |:---------:|
-| Person Main Information  | ❌        |
-| Person Cast Credits      | ❌        |
-| Person Crew Credits      | ❌        |
+| Endpoint                  | Status    |
+| ------------------------- |:---------:|
+| Person Main Information   | ❌        |
+| Person Cast Credits       | ❌        |
+| Person Crew Credits       | ❌        |
+| Person Guest Cast Credits | ❌        |
+| Person Index              | ❌        |
 
 ### Updates
-| Endpoint      | Status    |
-| ------------- |:---------:|
-| Show Updates  | ✅        |
+| Endpoint       | Status    |
+| -------------- |:---------:|
+| Show Updates   | ✅        |
+| Person Updates | ❌        |
 
