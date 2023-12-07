@@ -3,12 +3,15 @@
 namespace TvMaze.Api.Client.Models
 {
     [Flags]
-    public enum ShowEmbeddingFlags
+    public enum ShowEmbeddingFlags : short
     {
         None = 0,
-        Episodes = 0b0001,
-        Cast = 0b0010,
-        PreviousEpisode = 0b0100,
-        NextEpisode = 0b1000
+        Episodes = 1,
+        Cast = 2,
+        PreviousEpisode = 4,
+        NextEpisode = 8,
+        Seasons = 16,
+        Crew = 32,
+        Images = 64
     }
 }

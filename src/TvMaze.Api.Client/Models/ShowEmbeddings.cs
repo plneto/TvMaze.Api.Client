@@ -11,9 +11,12 @@ namespace TvMaze.Api.Client.Models
             new Dictionary<ShowEmbeddingFlags, string>
             {
                 {ShowEmbeddingFlags.Cast, "cast"},
+                { ShowEmbeddingFlags.Crew, "crew" },
                 {ShowEmbeddingFlags.Episodes, "episodes"},
                 {ShowEmbeddingFlags.PreviousEpisode, "previousepisode"},
-                {ShowEmbeddingFlags.NextEpisode, "nextepisode"}
+                { ShowEmbeddingFlags.NextEpisode, "nextepisode" },
+                { ShowEmbeddingFlags.Seasons, "seasons" },
+                { ShowEmbeddingFlags.Images, "images" },
             };
 
         public static Url AddQueryStringToUrl(Url url, ShowEmbeddingFlags embeddingFlags)
@@ -31,6 +34,12 @@ namespace TvMaze.Api.Client.Models
         public IEnumerable<Episode> Episodes { get; set; }
 
         public IEnumerable<Cast> Cast { get; set; }
+
+        public IEnumerable<Crew> Crew { get; set; }
+        
+        public IEnumerable<Season> Seasons { get; set; }
+        
+        public IEnumerable<ShowImage> Images { get; set; }
 
         public Episode PreviousEpisode { get; set; }
 
