@@ -32,6 +32,8 @@ namespace TvMaze.Api.Client.Models
 
         public string Summary { get; set; }
 
+        public Rating Rating { get; set; }
+
         [JsonProperty("_links")]
         public Links Links { get; set; }
 

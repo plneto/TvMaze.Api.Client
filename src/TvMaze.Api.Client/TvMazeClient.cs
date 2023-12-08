@@ -1,11 +1,11 @@
 using System.Net.Http;
+using Flurl.Http;
 using TvMaze.Api.Client.Configuration;
 using TvMaze.Api.Client.Endpoints.Episodes;
 using TvMaze.Api.Client.Endpoints.Lookup;
 using TvMaze.Api.Client.Endpoints.Search;
 using TvMaze.Api.Client.Endpoints.Shows;
 using TvMaze.Api.Client.Endpoints.Updates;
-using Flurl.Http;
 
 namespace TvMaze.Api.Client
 {
@@ -18,7 +18,7 @@ namespace TvMaze.Api.Client
         {
         }
 
-        public TvMazeClient(HttpClient httpClient) 
+        public TvMazeClient(HttpClient httpClient)
             : this(httpClient, null)
         {
         }
@@ -29,7 +29,7 @@ namespace TvMaze.Api.Client
             {
                 rateLimitingStrategy = new ThrowExceptionRateLimitingStrategy();
             }
-            
+
             var flurlClient = new FlurlClient(httpClient);
 
             // Caller didn't provide the base address.
@@ -47,6 +47,7 @@ namespace TvMaze.Api.Client
             Episodes = new EpisodesEndpoint(tvMazeHttpClient);
             Updates = new UpdatesEndpoint(tvMazeHttpClient);
             Lookup = new LookupEndpoint(tvMazeHttpClient);
+            Schedule = new ScheduleEndpoint(tvMazeHttpClient);
         }
 
         public ISearchEndpoint Search { get; }
@@ -56,7 +57,9 @@ namespace TvMaze.Api.Client
         public IEpisodesEndpoint Episodes { get; }
 
         public IUpdatesEndpoint Updates { get; }
-        
+
         public ILookupEndpoint Lookup { get; }
+
+        public IScheduleEndpoint Schedule { get; }
     }
 }

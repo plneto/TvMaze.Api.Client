@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace TvMaze.Api.Client.Models
@@ -20,8 +21,11 @@ namespace TvMaze.Api.Client.Models
         public string Status { get; set; }
 
         public int? Runtime { get; set; }
+        public int? AverageRuntime { get; set; }
 
-        public string Premiered { get; set; }
+        public DateTime? Premiered { get; set; }
+
+        public DateTime? Ended { get; set; }
 
         public string OfficialSite { get; set; }
 
