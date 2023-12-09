@@ -2,6 +2,10 @@ version: 0.1.{build}
 
 image: Visual Studio 2022
 
+only_commits:
+  files:
+    - src/*
+
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
