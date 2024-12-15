@@ -1,9 +1,8 @@
-﻿namespace TvMaze.Api.Client.Models
-{
-    public class Crew
-    {
-        public string Type { get; set; }
+﻿namespace TvMaze.Api.Client.Models;
 
-        public Person Person { get; set; }
-    }
+public class Crew
+{
+    public string? Type { get; set; }
+
+    public Person? Person { get; set; }
 }

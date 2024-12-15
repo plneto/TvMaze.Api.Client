@@ -1,43 +1,42 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace TvMaze.Api.Client.Models
+namespace TvMaze.Api.Client.Models;
+
+public class Episode
 {
-    public class Episode
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public EpisodeType Type { get; set; }
+    public EpisodeType Type { get; set; }
 
-        public string Url { get; set; }
+    public string? Url { get; set; }
 
-        public string Name { get; set; }
+    public string? Name { get; set; }
 
-        public int Season { get; set; }
+    public int Season { get; set; }
 
-        public int? Number { get; set; }
+    public int? Number { get; set; }
 
-        [JsonProperty("airdate")]
-        public string AirDate { get; set; }
+    [JsonProperty("airdate")]
+    public string? AirDate { get; set; }
 
-        [JsonProperty("airtime")]
-        public string AirTime { get; set; }
+    [JsonProperty("airtime")]
+    public string? AirTime { get; set; }
 
-        [JsonProperty("airstamp")]
-        public DateTimeOffset? AirStamp { get; set; }
+    [JsonProperty("airstamp")]
+    public DateTimeOffset? AirStamp { get; set; }
 
-        public int? Runtime { get; set; }
+    public int? Runtime { get; set; }
 
-        public Image Image { get; set; }
+    public Image? Image { get; set; }
 
-        public string Summary { get; set; }
+    public string? Summary { get; set; }
 
-        public Rating Rating { get; set; }
+    public Rating? Rating { get; set; }
 
-        [JsonProperty("_links")]
-        public Links Links { get; set; }
+    [JsonProperty("_links")]
+    public Links? Links { get; set; }
 
-        [JsonProperty("_embedded")]
-        public EpisodeEmbeddings Embedded { get; set; }
-    }
+    [JsonProperty("_embedded")]
+    public EpisodeEmbeddings? Embedded { get; set; }
 }

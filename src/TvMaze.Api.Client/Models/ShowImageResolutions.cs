@@ -1,9 +1,8 @@
-﻿namespace TvMaze.Api.Client.Models
-{
-    public class ShowImageResolutions
-    {
-        public ShowImageResolution Original { get; set; }
+﻿namespace TvMaze.Api.Client.Models;
 
-        public ShowImageResolution Medium { get; set; }
-    }
+public class ShowImageResolutions
+{
+    public ShowImageResolution? Original { get; set; }
+
+    public ShowImageResolution? Medium { get; set; }
 }

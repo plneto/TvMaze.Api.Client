@@ -1,4 +1,3 @@
-using System.Net.Http;
 using FluentAssertions;
 using TvMaze.Api.Client.Configuration;
 using TvMaze.Api.Client.Models;
@@ -23,7 +22,7 @@ public class EpisodesEndpointIntegrationTests
     [InlineData(ValidEpisodeIdRegularType, EpisodeType.Regular)]
     [InlineData(ValidEpisodeIdSignificantSpecialType, EpisodeType.SignificantSpecial)]
     [InlineData(ValidEpisodeIdInsignificantSpecialType, EpisodeType.InsignificantSpecial)]
-    public async void GetEpisodeByIdAsync_ValidParameter_Success(int episodeId, EpisodeType expectedType)
+    public async Task GetEpisodeByIdAsync_ValidParameter_Success(int episodeId, EpisodeType expectedType)
     {
         // act
         var response = await _tvMazeClient.Episodes.GetEpisodeMainInformationAsync(episodeId);
@@ -34,7 +33,7 @@ public class EpisodesEndpointIntegrationTests
     }
 
     [Fact]
-    public async void GetEpisodeByIdAsync_ValidParameter_EmbeddedShow_Success()
+    public async Task GetEpisodeByIdAsync_ValidParameter_EmbeddedShow_Success()
     {
         // arrange
         const int episodeId = 1;
@@ -47,7 +46,7 @@ public class EpisodesEndpointIntegrationTests
     }
 
     [Fact]
-    public async void GetEpisodeByIdAsync_ValidParameter_NotFound()
+    public async Task GetEpisodeByIdAsync_ValidParameter_NotFound()
     {
         // arrange
         const int episodeId = int.MaxValue;

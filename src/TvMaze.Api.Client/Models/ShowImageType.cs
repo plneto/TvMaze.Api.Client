@@ -1,10 +1,9 @@
-﻿namespace TvMaze.Api.Client.Models
+﻿namespace TvMaze.Api.Client.Models;
+
+public enum ShowImageType
 {
-    public enum ShowImageType
-    {
-        Poster = 1,
-        Banner = 2,
-        Background = 3,
-        Typography = 4
-    }
+    Poster = 1,
+    Banner = 2,
+    Background = 3,
+    Typography = 4
 }

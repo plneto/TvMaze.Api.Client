@@ -1,7 +1,6 @@
-﻿namespace TvMaze.Api.Client.Constants
+﻿namespace TvMaze.Api.Client.Constants;
+
+public static class HttpStatusCodes
 {
-    public static class HttpStatusCodes
-    {
-        public static int TooManyAttempts = 429;
-    }
+    public static int TooManyAttempts = 429;
 }

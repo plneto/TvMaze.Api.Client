@@ -40,7 +40,7 @@ for:
     configuration: Release
 
     build:
-      publish_nuget: true
+      publish_nuget: false
 
     after_build:
       - dotnet pack .\src\TvMaze.Api.Client\TvMaze.Api.Client.csproj -c Release -o .\artifacts --include-symbols -p:SymbolPackageFormat=snupkg

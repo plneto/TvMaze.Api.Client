@@ -4,18 +4,17 @@ using TvMaze.Api.Client.Endpoints.Search;
 using TvMaze.Api.Client.Endpoints.Shows;
 using TvMaze.Api.Client.Endpoints.Updates;
 
-namespace TvMaze.Api.Client
+namespace TvMaze.Api.Client;
+
+public interface ITvMazeClient
 {
-    public interface ITvMazeClient
-    {
-        ISearchEndpoint Search { get; }
+    ISearchEndpoint Search { get; }
 
-        IShowsEndpoint Shows { get; }
+    IShowsEndpoint Shows { get; }
 
-        IEpisodesEndpoint Episodes { get; }
+    IEpisodesEndpoint Episodes { get; }
 
-        IUpdatesEndpoint Updates { get; }
+    IUpdatesEndpoint Updates { get; }
         
-        ILookupEndpoint Lookup { get; }
-    }
+    ILookupEndpoint Lookup { get; }
 }

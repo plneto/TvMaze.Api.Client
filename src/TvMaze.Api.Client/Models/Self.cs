@@ -1,7 +1,6 @@
-﻿namespace TvMaze.Api.Client.Models
+﻿namespace TvMaze.Api.Client.Models;
+
+public class Self
 {
-    public class Self
-    {
-        public string Href { get; set; }
-    }
+    public string? Href { get; set; }
 }

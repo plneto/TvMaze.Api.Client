@@ -2,26 +2,25 @@
 using System.Threading.Tasks;
 using TvMaze.Api.Client.Models;
 
-namespace TvMaze.Api.Client.Endpoints.Episodes
+namespace TvMaze.Api.Client.Endpoints.Episodes;
+
+public class EpisodesEndpoint : IEpisodesEndpoint
 {
-    public class EpisodesEndpoint : IEpisodesEndpoint
+    private readonly TvMazeHttpClient _httpClient;
+
+    public EpisodesEndpoint(TvMazeHttpClient httpClient)
     {
-        private readonly TvMazeHttpClient _httpClient;
+        _httpClient = httpClient;
+    }
 
-        public EpisodesEndpoint(TvMazeHttpClient httpClient)
+    /// <inheritdoc />
+    public Task<Episode?> GetEpisodeMainInformationAsync(int episodeId, EpisodeEmbeddingFlags embeddings)
+    {
+        if (episodeId <= 0)
         {
-            _httpClient = httpClient;
+            throw new ArgumentException(nameof(episodeId));
         }
 
-        /// <inheritdoc />
-        public Task<Episode> GetEpisodeMainInformationAsync(int episodeId, EpisodeEmbeddingFlags embeddings)
-        {
-            if (episodeId <= 0)
-            {
-                throw new ArgumentException(nameof(episodeId));
-            }
-
-            return _httpClient.GetAsync<Episode>(EpisodeEmbeddings.AddQueryStringToUrl($"episodes/{episodeId}", embeddings));
-        }
+        return _httpClient.GetAsync<Episode>(EpisodeEmbeddings.AddQueryStringToUrl($"episodes/{episodeId}", embeddings));
     }
 }

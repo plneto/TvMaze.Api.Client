@@ -1,25 +1,23 @@
-﻿using System.Net.Http;
-using FluentAssertions;
+﻿using FluentAssertions;
 using TvMaze.Api.Client.Configuration;
 using Xunit;
 
-namespace TvMaze.Api.Client.Integration.Tests
+namespace TvMaze.Api.Client.Integration.Tests;
+
+public class UpdatesEndpointIntegrationTests
 {
-    public class UpdatesEndpointIntegrationTests
+    private readonly ITvMazeClient _tvMazeClient;
+
+    public UpdatesEndpointIntegrationTests()
     {
-        private readonly ITvMazeClient _tvMazeClient;
+        _tvMazeClient = new TvMazeClient(new HttpClient(), new RetryRateLimitingStrategy());
+    }
 
-        public UpdatesEndpointIntegrationTests()
-        {
-            _tvMazeClient = new TvMazeClient(new HttpClient(), new RetryRateLimitingStrategy());
-        }
+    [Fact]
+    public async Task GetShowUpdatesAsync_Success()
+    {
+        var response = await _tvMazeClient.Updates.GetShowUpdatesAsync();
 
-        [Fact]
-        public async void GetShowUpdatesAsync_Success()
-        {
-            var response = await _tvMazeClient.Updates.GetShowUpdatesAsync();
-
-            response.Should().NotBeNull();
-        }
+        response.Should().NotBeNull();
     }
 }

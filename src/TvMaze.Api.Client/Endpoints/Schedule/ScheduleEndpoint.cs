@@ -2,20 +2,21 @@
 using System.Threading.Tasks;
 using TvMaze.Api.Client.Models;
 
-namespace TvMaze.Api.Client.Endpoints.Episodes
+namespace TvMaze.Api.Client.Endpoints.Schedule;
+
+public class ScheduleEndpoint : IScheduleEndpoint
 {
-    public class ScheduleEndpoint : IScheduleEndpoint
+    private readonly TvMazeHttpClient _httpClient;
+
+    public ScheduleEndpoint(TvMazeHttpClient httpClient)
     {
-        private readonly TvMazeHttpClient _httpClient;
+        _httpClient = httpClient;
+    }
 
-        public ScheduleEndpoint(TvMazeHttpClient httpClient)
-        {
-            _httpClient = httpClient;
-        }
+    public async Task<IEnumerable<Episode>> GetFullSchedule()
+    {
+        var response = await _httpClient.GetAsync<IEnumerable<Episode>>("schedule/full");
 
-        public Task<IEnumerable<Episode>> GetFullSchedule()
-        {
-            return _httpClient.GetAsync<IEnumerable<Episode>>("schedule/full");
-        }
+        return response ?? [];
     }
 }

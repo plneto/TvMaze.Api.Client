@@ -2,48 +2,47 @@
 using System.Threading.Tasks;
 using TvMaze.Api.Client.Models;
 
-namespace TvMaze.Api.Client.Endpoints.Lookup
+namespace TvMaze.Api.Client.Endpoints.Lookup;
+
+public class LookupEndpoint : ILookupEndpoint
 {
-    public class LookupEndpoint : ILookupEndpoint
+    private readonly TvMazeHttpClient _httpClient;
+
+    public LookupEndpoint(TvMazeHttpClient httpClient)
     {
-        private readonly TvMazeHttpClient _httpClient;
+        _httpClient = httpClient;
+    }
 
-        public LookupEndpoint(TvMazeHttpClient httpClient)
+    /// <inheritdoc />
+    public Task<Show?> GetShowByTvRageIdAsync(int tvRageId)
+    {
+        if (tvRageId <= 0)
         {
-            _httpClient = httpClient;
+            throw new ArgumentException(nameof(tvRageId));
         }
 
-        /// <inheritdoc />
-        public Task<Show> GetShowByTvRageIdAsync(int tvRageId)
-        {
-            if (tvRageId <= 0)
-            {
-                throw new ArgumentException(nameof(tvRageId));
-            }
+        return _httpClient.GetAsync<Show>($"lookup/shows?tvrage={tvRageId}");
+    }
 
-            return _httpClient.GetAsync<Show>($"lookup/shows?tvrage={tvRageId}");
+    /// <inheritdoc />
+    public Task<Show?> GetShowByTheTvdbIdAsync(int theTvdbId)
+    {
+        if (theTvdbId <= 0)
+        {
+            throw new ArgumentException(nameof(theTvdbId));
         }
 
-        /// <inheritdoc />
-        public Task<Show> GetShowByTheTvdbIdAsync(int theTvdbId)
-        {
-            if (theTvdbId <= 0)
-            {
-                throw new ArgumentException(nameof(theTvdbId));
-            }
+        return _httpClient.GetAsync<Show>($"lookup/shows?thetvdb={theTvdbId}");
+    }
 
-            return _httpClient.GetAsync<Show>($"lookup/shows?thetvdb={theTvdbId}");
+    /// <inheritdoc />
+    public Task<Show?> GetShowByImdbIdAsync(string imdbId)
+    {
+        if(string.IsNullOrEmpty(imdbId))
+        {
+            throw new ArgumentNullException(nameof(imdbId));    
         }
 
-        /// <inheritdoc />
-        public Task<Show> GetShowByImdbIdAsync(string imdbId)
-        {
-            if(string.IsNullOrEmpty(imdbId))
-            {
-                throw new ArgumentNullException(nameof(imdbId));    
-            }
-
-            return _httpClient.GetAsync<Show>($"lookup/shows?imdb={imdbId}");
-        }
+        return _httpClient.GetAsync<Show>($"lookup/shows?imdb={imdbId}");
     }
 }

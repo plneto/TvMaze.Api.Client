@@ -3,27 +3,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using TvMaze.Api.Client.Models;
 
-namespace TvMaze.Api.Client.Endpoints.Updates
+namespace TvMaze.Api.Client.Endpoints.Updates;
+
+public class UpdatesEndpoint : IUpdatesEndpoint
 {
-    public class UpdatesEndpoint : IUpdatesEndpoint
+    private readonly TvMazeHttpClient _httpClient;
+
+    public UpdatesEndpoint(TvMazeHttpClient httpClient)
     {
-        private readonly TvMazeHttpClient _httpClient;
+        _httpClient = httpClient;
+    }
 
-        public UpdatesEndpoint(TvMazeHttpClient httpClient)
+    /// <inheritdoc />
+    public async Task<IEnumerable<ShowLastUpdated>> GetShowUpdatesAsync()
+    {
+        var response = await _httpClient.GetAsync<Dictionary<int, double>>("updates/shows");
+
+        return response?.Select(x => new ShowLastUpdated
         {
-            _httpClient = httpClient;
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<ShowLastUpdated>> GetShowUpdatesAsync()
-        {
-            var result = await _httpClient.GetAsync<Dictionary<int, double>>("updates/shows");
-
-            return result.Select(x => new ShowLastUpdated
-            {
-                Id = x.Key,
-                Timestamp = x.Value
-            });
-        }
+            Id = x.Key,
+            Timestamp = x.Value
+        }) ?? [];
     }
 }

@@ -1,110 +1,106 @@
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 using FluentAssertions;
 using TvMaze.Api.Client.Configuration;
 using TvMaze.Api.Client.Models;
 using Xunit;
 
-namespace TvMaze.Api.Client.Integration.Tests
+namespace TvMaze.Api.Client.Integration.Tests;
+
+public class SearchEndpointIntegrationTests
 {
-    public class SearchEndpointIntegrationTests
+    private readonly ITvMazeClient _tvMazeClient;
+
+    public SearchEndpointIntegrationTests()
     {
-        private readonly ITvMazeClient _tvMazeClient;
+        _tvMazeClient = new TvMazeClient(new HttpClient(), new RetryRateLimitingStrategy());
+    }
 
-        public SearchEndpointIntegrationTests()
-        {
-            _tvMazeClient = new TvMazeClient(new HttpClient(), new RetryRateLimitingStrategy());
-        }
+    [Fact]
+    public async Task ShowSearchAsync_ValidParameter_Success()
+    {
+        // arrange
+        const string query = "cars";
 
-        [Fact]
-        public async void ShowSearchAsync_ValidParameter_Success()
-        {
-            // arrange
-            const string query = "cars";
+        // act
+        var response = await _tvMazeClient.Search.ShowSearchAsync(query);
 
-            // act
-            var response = await _tvMazeClient.Search.ShowSearchAsync(query);
+        // assert
+        response.Should().NotBeNull().And.NotBeEmpty();
+    }
 
-            // assert
-            response.Should().NotBeNull().And.NotBeEmpty();
-        }
+    [Fact]
+    public async Task ShowSearchAsync_ValidParameter_NoResult()
+    {
+        // arrange
+        const string query = "cars123456";
 
-        [Fact]
-        public async void ShowSearchAsync_ValidParameter_NoResult()
-        {
-            // arrange
-            const string query = "cars123456";
+        // act
+        var response = await _tvMazeClient.Search.ShowSearchAsync(query);
 
-            // act
-            var response = await _tvMazeClient.Search.ShowSearchAsync(query);
+        // assert
+        response.Should().NotBeNull().And.BeEmpty();
+    }
 
-            // assert
-            response.Should().NotBeNull().And.BeEmpty();
-        }
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public async Task ShowSearchAsync_InvalidQuery_ThrowsArgumentNullException(string query)
+    {
+        // act
+        Func<Task> action = () => _tvMazeClient.Search.ShowSearchAsync(query);
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        public async void ShowSearchAsync_InvalidQuery_ThrowsArgumentNullException(string query)
-        {
-            // act
-            Func<Task> action = () => _tvMazeClient.Search.ShowSearchAsync(query);
+        // assert
+        await action.Should().ThrowAsync<ArgumentNullException>();
+    }
 
-            // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
-        }
+    [Fact]
+    public async Task ShowSingleSearchAsync_ValidParameter_Success()
+    {
+        // arrange
+        const string query = "girls";
 
-        [Fact]
-        public async void ShowSingleSearchAsync_ValidParameter_Success()
-        {
-            // arrange
-            const string query = "girls";
+        // act
+        var response = await _tvMazeClient.Search.ShowSingleSearchAsync(query);
 
-            // act
-            var response = await _tvMazeClient.Search.ShowSingleSearchAsync(query);
+        // assert
+        response.Should().NotBeNull().And.Subject.As<Show>().Id.Should().Be(139);
+    }
 
-            // assert
-            response.Should().NotBeNull().And.Subject.As<Show>().Id.Should().Be(139);
-        }
+    [Fact]
+    public async Task ShowSingleSearchAsync_ValidParameter_Embed_Success()
+    {
+        // arrange
+        const string query = "girls";
 
-        [Fact]
-        public async void ShowSingleSearchAsync_ValidParameter_Embed_Success()
-        {
-            // arrange
-            const string query = "girls";
+        // act
+        var response = await _tvMazeClient.Search.ShowSingleSearchAsync(query, ShowEmbeddingFlags.Episodes | ShowEmbeddingFlags.Cast);
 
-            // act
-            var response = await _tvMazeClient.Search.ShowSingleSearchAsync(query, ShowEmbeddingFlags.Episodes | ShowEmbeddingFlags.Cast);
+        // assert
+        (response?.Embedded?.Cast).Should().NotBeNull().And.NotBeEmpty();
+        (response?.Embedded?.Episodes).Should().NotBeNull().And.NotBeEmpty();
+    }
 
-            // assert
-            (response?.Embedded?.Cast).Should().NotBeNull().And.NotBeEmpty();
-            (response?.Embedded?.Episodes).Should().NotBeNull().And.NotBeEmpty();
-        }
+    [Fact]
+    public async Task ShowSingleSearchAsync_ValidParameter_NoResult()
+    {
+        // arrange
+        const string query = "girls123456";
 
-        [Fact]
-        public async void ShowSingleSearchAsync_ValidParameter_NoResult()
-        {
-            // arrange
-            const string query = "girls123456";
+        // act
+        var response = await _tvMazeClient.Search.ShowSingleSearchAsync(query);
 
-            // act
-            var response = await _tvMazeClient.Search.ShowSingleSearchAsync(query);
+        // assert
+        response.Should().BeNull();
+    }
 
-            // assert
-            response.Should().BeNull();
-        }
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public async Task ShowSingleSearchAsync_InvalidQuery_ThrowsArgumentNullException(string query)
+    {
+        // act
+        Func<Task> action = () => _tvMazeClient.Search.ShowSingleSearchAsync(query);
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        public async void ShowSingleSearchAsync_InvalidQuery_ThrowsArgumentNullException(string query)
-        {
-            // act
-            Func<Task> action = () => _tvMazeClient.Search.ShowSingleSearchAsync(query);
-
-            // assert
-            await action.Should().ThrowAsync<ArgumentNullException>();
-        }
+        // assert
+        await action.Should().ThrowAsync<ArgumentNullException>();
     }
 }

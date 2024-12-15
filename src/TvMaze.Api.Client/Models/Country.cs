@@ -1,11 +1,10 @@
-﻿namespace TvMaze.Api.Client.Models
+﻿namespace TvMaze.Api.Client.Models;
+
+public class Country
 {
-    public class Country
-    {
-        public string Name { get; set; }
+    public string? Name { get; set; }
         
-        public string Code { get; set; }
+    public string? Code { get; set; }
         
-        public string Timezone { get; set; }
-    }
+    public string? Timezone { get; set; }
 }

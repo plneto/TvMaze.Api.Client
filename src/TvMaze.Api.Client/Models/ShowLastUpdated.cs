@@ -1,9 +1,8 @@
-﻿namespace TvMaze.Api.Client.Models
-{
-    public class ShowLastUpdated
-    {
-        public int Id { get; set; }
+﻿namespace TvMaze.Api.Client.Models;
 
-        public double Timestamp { get; set; }
-    }
+public class ShowLastUpdated
+{
+    public int Id { get; set; }
+
+    public double Timestamp { get; set; }
 }

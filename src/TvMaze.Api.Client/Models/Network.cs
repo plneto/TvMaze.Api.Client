@@ -1,13 +1,12 @@
-﻿namespace TvMaze.Api.Client.Models
+﻿namespace TvMaze.Api.Client.Models;
+
+public class Network
 {
-    public class Network
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
         
-        public string Name { get; set; }
+    public string? Name { get; set; }
         
-        public Country Country { get; set; }
+    public Country? Country { get; set; }
         
-        public string OfficialSite { get; set; }
-    }
+    public string? OfficialSite { get; set; }
 }

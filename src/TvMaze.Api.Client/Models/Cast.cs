@@ -1,13 +1,12 @@
-﻿namespace TvMaze.Api.Client.Models
+﻿namespace TvMaze.Api.Client.Models;
+
+public class Cast
 {
-    public class Cast
-    {
-        public Person Person { get; set; }
+    public Person? Person { get; set; }
 
-        public Character Character { get; set; }
+    public Character? Character { get; set; }
 
-        public bool Self { get; set; }
+    public bool Self { get; set; }
 
-        public bool Voice { get; set; }
-    }
+    public bool Voice { get; set; }
 }

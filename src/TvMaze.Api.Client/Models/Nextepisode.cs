@@ -1,7 +1,6 @@
-﻿namespace TvMaze.Api.Client.Models
+﻿namespace TvMaze.Api.Client.Models;
+
+public class NextEpisode
 {
-    public class NextEpisode
-    {
-        public string Href { get; set; }
-    }
+    public string? Href { get; set; }
 }

@@ -7,54 +7,53 @@ using Flurl.Http;
 using TvMaze.Api.Client.Configuration;
 using TvMaze.Api.Client.Exceptions;
 
-namespace TvMaze.Api.Client
+namespace TvMaze.Api.Client;
+
+public class TvMazeHttpClient
 {
-    public class TvMazeHttpClient
+    private readonly FlurlClient _flurlClient;
+    private readonly IRateLimitingStrategy _rateLimitingStrategy;
+
+    public TvMazeHttpClient(FlurlClient flurlClient, IRateLimitingStrategy rateLimitingStrategy)
     {
-        private readonly FlurlClient _flurlClient;
-        private readonly IRateLimitingStrategy _rateLimitingStrategy;
+        _flurlClient = flurlClient;
+        _rateLimitingStrategy = rateLimitingStrategy;
+    }
 
-        public TvMazeHttpClient(FlurlClient flurlClient, IRateLimitingStrategy rateLimitingStrategy)
+    public async Task<T?> GetAsync<T>(string url, Func<T>? notFoundResponseHandler = null)
+    {
+        using (var httpResponse = await _rateLimitingStrategy.ExecuteAsync(() => _flurlClient.Request(url).GetAsync()))
         {
-            _flurlClient = flurlClient;
-            _rateLimitingStrategy = rateLimitingStrategy;
-        }
-
-        public async Task<T> GetAsync<T>(string url, Func<T> notFoundResponseHandler = null)
-        {
-            using (var httpResponse = await _rateLimitingStrategy.ExecuteAsync(() => _flurlClient.Request(url).GetAsync()))
+            switch (httpResponse.StatusCode)
             {
-                switch (httpResponse.StatusCode)
-                {
-                    case (int)HttpStatusCode.OK:
-                        return await httpResponse.GetJsonAsync<T>();
+                case (int)HttpStatusCode.OK:
+                    return await httpResponse.GetJsonAsync<T>();
 
-                    case (int)HttpStatusCode.NotFound:
-                        var handler = notFoundResponseHandler ?? DefaultNotFoundResponseHandler<T>();
+                case (int)HttpStatusCode.NotFound:
+                    var handler = notFoundResponseHandler ?? DefaultNotFoundResponseHandler<T>();
 
-                        return handler.Invoke();
+                    return handler.Invoke();
 
-                    default:
-                        throw new UnexpectedResponseStatusException((HttpStatusCode)httpResponse.StatusCode); ;
-                }
+                default:
+                    throw new UnexpectedResponseStatusException((HttpStatusCode)httpResponse.StatusCode);
             }
         }
+    }
 
-        private static Func<T> DefaultNotFoundResponseHandler<T>()
+    private static Func<T?> DefaultNotFoundResponseHandler<T>()
+    {
+        var resultType = typeof(T);
+
+        if (resultType.IsConstructedGenericType && resultType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
         {
-            var resultType = typeof(T);
+            var emptyEnumerable = typeof(Enumerable)
+                .GetMethod(nameof(Enumerable.Empty))
+                ?.MakeGenericMethod(typeof(T).GenericTypeArguments[0])
+                .Invoke(null, null);
 
-            if (resultType.IsConstructedGenericType && resultType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-            {
-                var emptyEnumerable = typeof(Enumerable)
-                    .GetMethod(nameof(Enumerable.Empty))
-                    .MakeGenericMethod(typeof(T).GenericTypeArguments[0])
-                    .Invoke(null, null);
-
-                return () => (T)emptyEnumerable;
-            }
-
-            return () => default;
+            return () => (T?)emptyEnumerable;
         }
+
+        return () => default;
     }
 }
